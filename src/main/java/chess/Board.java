@@ -9,7 +9,7 @@ public class Board {
     private List<Pawn> pawnList;
 
     public Board() {
-        this.pawnList = new ArrayList<Pawn>();
+        this.pawnList = new ArrayList<>();
     }
 
     public void add(Pawn pawn) {
@@ -41,16 +41,16 @@ public class Board {
     }
 
     public String getWhitePawnsResult() {
-        StringBuilder sb = new StringBuilder();
-        for(int i=8;i<16;i++) {
-            sb.append(this.pawnList.get(i).getRepresentation());
-        }
-        return sb.toString();
+        return rowToString(48, 56);
     }
 
     public String getBlackPawnsResult() {
+        return rowToString(8, 16);
+    }
+
+    public String rowToString(int start, int end) {
         StringBuilder sb = new StringBuilder();
-        for(int i=48;i<56;i++) {
+        for(int i=start;i<end;i++) {
             sb.append(this.pawnList.get(i).getRepresentation());
         }
         return sb.toString();
