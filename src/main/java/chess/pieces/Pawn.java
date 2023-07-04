@@ -1,4 +1,4 @@
-package softeer2nd;
+package chess.pieces;
 
 public class Pawn {
     public static final String WHITE_COLOR = "white";

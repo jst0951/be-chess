@@ -1,5 +1,7 @@
-package softeer2nd;
+package chess;
 
+import chess.Board;
+import chess.pieces.Pawn;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
