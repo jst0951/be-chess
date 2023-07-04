@@ -4,6 +4,7 @@ import chess.pieces.Pawn;
 
 import java.util.ArrayList;
 import java.util.List;
+import static utils.StringUtils.appendNewLine;
 
 public class Board {
     private List<Pawn> pawnList;
@@ -67,7 +68,7 @@ public class Board {
             }
 
             if (i % 8 == 7) {
-                sb.append("\n");
+                appendNewLine(sb);
             }
         }
         return sb.toString();
