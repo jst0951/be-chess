@@ -1,43 +1,43 @@
 package chess;
 
-import chess.pieces.Pawn;
+import chess.pieces.Piece;
 
 import java.util.ArrayList;
 import java.util.List;
 import static utils.StringUtils.appendNewLine;
 
 public class Board {
-    private List<Pawn> pawnList;
+    private List<Piece> pieceList;
 
     public Board() {
-        this.pawnList = new ArrayList<>();
+        this.pieceList = new ArrayList<>();
     }
 
-    public void add(Pawn pawn) {
-        this.pawnList.add(pawn);
+    public void add(Piece piece) {
+        this.pieceList.add(piece);
     }
 
     public Integer size() {
-        return pawnList.size();
+        return pieceList.size();
     }
 
-    public Pawn findPawn(int idx) {
-        return this.pawnList.get(idx);
+    public Piece findPawn(int idx) {
+        return this.pieceList.get(idx);
     }
 
     public void initialize() {
         int i;
         // 전체 null로 초기화
         for (i = 0; i < 8 * 8; i++) {
-            this.pawnList.add(null);
+            this.pieceList.add(null);
         }
         // 검은색 폰 셋팅
         for (i = 8; i < 16; i++) {
-            this.pawnList.set(i, new Pawn(Pawn.BLACK_COLOR, Pawn.BLACK_REPRESENTATION));
+            this.pieceList.set(i, Piece.createBlackPawn());
         }
         // 흰색 폰 셋팅
         for (i = 48; i < 56; i++) {
-            this.pawnList.set(i, new Pawn(Pawn.WHITE_COLOR, Pawn.WHITE_REPRESENTATION));
+            this.pieceList.set(i, Piece.createWhitePawn());
         }
     }
 
@@ -52,7 +52,7 @@ public class Board {
     public String rowToString(int start, int end) {
         StringBuilder sb = new StringBuilder();
         for(int i=start;i<end;i++) {
-            sb.append(this.pawnList.get(i).getRepresentation());
+            sb.append(this.pieceList.get(i).getRepresentation());
         }
         return sb.toString();
     }
@@ -60,11 +60,11 @@ public class Board {
     public String print() {
         StringBuilder sb = new StringBuilder();
         for(int i=0;i<64;i++) {
-            if (this.pawnList.get(i) == null) {
+            if (this.pieceList.get(i) == null) {
                 sb.append('.');
             }
             else {
-                sb.append(this.pawnList.get(i).getRepresentation());
+                sb.append(this.pieceList.get(i).getRepresentation());
             }
 
             if (i % 8 == 7) {
