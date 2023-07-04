@@ -1,5 +1,6 @@
-package softeer2nd;
+package chess.pieces;
 
+import chess.pieces.Pawn;
 import org.junit.jupiter.api.*;
 import static org.assertj.core.api.Assertions.*;
 
@@ -11,7 +12,6 @@ public class PawnTest {
         verifyPawn("white");
         verifyPawn("black");
     }
-
     public void verifyPawn(final String color) {
         Pawn pawn = new Pawn(color);
         assertThat(pawn.getColor()).isEqualTo(color);
