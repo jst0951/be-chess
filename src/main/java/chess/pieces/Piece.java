@@ -101,6 +101,10 @@ public class Piece {
         return this.name;
     }
 
+    public Type getType() {
+        return this.type;
+    }
+
     public char getRepresentation() {
         if(this.color.equals(Color.WHITE)) {
             return this.type.getWhiteRepresentation();
