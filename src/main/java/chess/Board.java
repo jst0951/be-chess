@@ -101,7 +101,14 @@ public class Board {
     }
 
     public int pieceCount() {
-        return -1;
+        int pCnt = 0;
+        for(int i=0;i<this.pieceList.size();i++) {
+            if(this.pieceList.get(i) != null) {
+                pCnt++;
+            }
+        }
+
+        return pCnt;
     }
 
 }

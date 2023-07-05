@@ -33,7 +33,7 @@ public class BoardTest {
     @DisplayName("초기화 후 최초에 보드가 올바르게 표시되어야 한다.")
     public void create() throws Exception {
         board.initialize();
-        assertThat(board.pieceCount());
+        assertThat(board.pieceCount()).isEqualTo(32);
         String blankRank = appendNewLine("........");
         assertThat(board.showBoard()).isEqualTo(
                 appendNewLine("RNBQKBNR") +
