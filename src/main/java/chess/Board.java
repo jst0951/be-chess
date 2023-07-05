@@ -5,6 +5,7 @@ import chess.pieces.Piece;
 import java.util.ArrayList;
 import java.util.List;
 import static utils.StringUtils.appendNewLine;
+import chess.pieces.Piece.Type;
 
 public class Board {
     private List<Piece> pieceList;
@@ -63,19 +64,14 @@ public class Board {
     }
     public void addBlankRow() {
         for(int i = 0; i < COL_CNT; i++) {
-            addPiece(null);
+            addPiece(Piece.createBlank());
         }
     }
 
     public String showBoard() {
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < ROW_CNT * COL_CNT; i++) {
-            if (this.pieceList.get(i) == null) {
-                sb.append('.');
-            }
-            else {
-                sb.append(this.pieceList.get(i).getRepresentation());
-            }
+            sb.append(this.pieceList.get(i).getRepresentation());
 
             if (i % 8 == 7) {
                 appendNewLine(sb);
@@ -87,7 +83,7 @@ public class Board {
     public int pieceCount() {
         int pCnt = 0;
         for(int i = 0; i < ROW_CNT * COL_CNT; i++) {
-            if(this.pieceList.get(i) != null) {
+            if(this.pieceList.get(i).getType() != Type.NO_PIECE) {
                 pCnt++;
             }
         }
