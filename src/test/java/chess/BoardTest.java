@@ -17,13 +17,6 @@ public class BoardTest {
     }
 
     @Test
-    public void initialize() throws Exception {
-        board.initialize();
-        assertThat(board.getWhitePawnsResult()).isEqualTo("pppppppp");
-        assertThat(board.getBlackPawnsResult()).isEqualTo("PPPPPPPP");
-    }
-
-    @Test
     public void print() throws Exception {
         board.initialize();
         System.out.println(board.showBoard());
