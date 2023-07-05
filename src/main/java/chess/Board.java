@@ -29,7 +29,6 @@ public class Board {
 
     public void initialize() {
         int i;
-        int startIdx, endIdx;
         // 흑색 기물(폰 제외) 셋팅
         this.pieceList.add(Piece.createBlackRook());
         this.pieceList.add(Piece.createBlackKnight());
@@ -66,22 +65,6 @@ public class Board {
         for(int i = 0; i < COL_CNT; i++) {
             this.pieceList.add(null);
         }
-    }
-
-    public String getWhitePawnsResult() {
-        return rowToString(48, 56);
-    }
-
-    public String getBlackPawnsResult() {
-        return rowToString(8, 16);
-    }
-
-    public String rowToString(int start, int end) {
-        StringBuilder sb = new StringBuilder();
-        for(int i=start; i<end; i++) {
-            sb.append(this.pieceList.get(i).getRepresentation());
-        }
-        return sb.toString();
     }
 
     public String showBoard() {
