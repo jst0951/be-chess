@@ -28,6 +28,7 @@ public class Piece {
         }
     }
 
+    public static final String BLANK_NAME = "blank";
     public static final String PAWN_NAME = "pawn";
     public static final String KNIGHT_NAME = "knight";
     public static final String ROOK_NAME = "rook";
@@ -43,6 +44,10 @@ public class Piece {
         this.color = color;
         this.name = name;
         this.type = type;
+    }
+
+    public static Piece createBlank() {
+        return new Piece(Color.NOCOLOR, BLANK_NAME, Type.NO_PIECE);
     }
 
     public static Piece createWhitePawn() {
