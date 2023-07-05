@@ -42,4 +42,22 @@ public class BoardTest {
                         appendNewLine("pppppppp") +
                         appendNewLine("rnbqkbnr"));
     }
+
+    @Test
+    @DisplayName("isBlack() : 검은 말은 true, 흰색 말은 false를 반환해야 한다.")
+    public void validateIsBlack() throws Exception {
+        Piece blackPiece = Piece.createBlackPawn();
+        Piece whitePiece = Piece.createWhitePawn();
+        assertThat(blackPiece.isBlack()).isEqualTo(true);
+        assertThat(whitePiece.isBlack()).isEqualTo(false);
+    }
+
+    @Test
+    @DisplayName("isWhite() : 검은 말은 false, 흰색 말은 true를 반환해야 한다.")
+    public void validateIsBlack() throws Exception {
+        Piece blackPiece = Piece.createBlackPawn();
+        Piece whitePiece = Piece.createWhitePawn();
+        assertThat(blackPiece.isWhite()).isEqualTo(false);
+        assertThat(whitePiece.isWhite()).isEqualTo(true);
+    }
 }
