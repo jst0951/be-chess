@@ -63,7 +63,7 @@ public class Board {
     }
     public void addBlankRow() {
         for(int i = 0; i < COL_CNT; i++) {
-            this.pieceList.add(null);
+            add(null);
         }
     }
 
