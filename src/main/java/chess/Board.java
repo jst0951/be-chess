@@ -23,7 +23,7 @@ public class Board {
         return pieceList.size();
     }
 
-    public Piece findPawn(int idx) {
+    public Piece findPiece(int idx) {
         return this.pieceList.get(idx);
     }
 
