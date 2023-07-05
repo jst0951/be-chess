@@ -94,4 +94,12 @@ public class Piece {
         return this.representation;
     }
 
+    // extra features
+    public boolean isBlack() {
+        return this.color.equals(BLACK_COLOR);
+    }
+
+    public boolean isWhite() {
+        return this.color.equals(WHITE_COLOR);
+    }
 }

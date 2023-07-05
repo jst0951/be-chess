@@ -54,7 +54,7 @@ public class BoardTest {
 
     @Test
     @DisplayName("isWhite() : 검은 말은 false, 흰색 말은 true를 반환해야 한다.")
-    public void validateIsBlack() throws Exception {
+    public void validateIsWhite() throws Exception {
         Piece blackPiece = Piece.createBlackPawn();
         Piece whitePiece = Piece.createWhitePawn();
         assertThat(blackPiece.isWhite()).isEqualTo(false);
