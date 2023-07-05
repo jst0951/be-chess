@@ -15,7 +15,7 @@ public class Board {
         this.pieceList = new ArrayList<>();
     }
 
-    public void add(Piece piece) {
+    public void addPiece(Piece piece) {
         this.pieceList.add(piece);
     }
 
@@ -30,17 +30,17 @@ public class Board {
     public void initialize() {
         int i;
         // 흑색 기물(폰 제외) 셋팅
-        add(Piece.createBlackRook());
-        add(Piece.createBlackKnight());
-        add(Piece.createBlackBishop());
-        add(Piece.createBlackQueen());
-        add(Piece.createBlackKing());
-        add(Piece.createBlackBishop());
-        add(Piece.createBlackKnight());
-        add(Piece.createBlackRook());
+        addPiece(Piece.createBlackRook());
+        addPiece(Piece.createBlackKnight());
+        addPiece(Piece.createBlackBishop());
+        addPiece(Piece.createBlackQueen());
+        addPiece(Piece.createBlackKing());
+        addPiece(Piece.createBlackBishop());
+        addPiece(Piece.createBlackKnight());
+        addPiece(Piece.createBlackRook());
         // 검은색 폰 셋팅
         for (i = 0; i < COL_CNT; i++) {
-            add(Piece.createBlackPawn());
+            addPiece(Piece.createBlackPawn());
         }
         // 빈 칸 4줄 셋팅
         addBlankRow();
@@ -49,21 +49,21 @@ public class Board {
         addBlankRow();
         // 흰색 폰 셋팅
         for (i = 0; i < COL_CNT; i++) {
-            add(Piece.createWhitePawn());
+            addPiece(Piece.createWhitePawn());
         }
         // 백색 기물(폰 제외) 셋팅
-        add(Piece.createWhiteRook());
-        add(Piece.createWhiteKnight());
-        add(Piece.createWhiteBishop());
-        add(Piece.createWhiteQueen());
-        add(Piece.createWhiteKing());
-        add(Piece.createWhiteBishop());
-        add(Piece.createWhiteKnight());
-        add(Piece.createWhiteRook());
+        addPiece(Piece.createWhiteRook());
+        addPiece(Piece.createWhiteKnight());
+        addPiece(Piece.createWhiteBishop());
+        addPiece(Piece.createWhiteQueen());
+        addPiece(Piece.createWhiteKing());
+        addPiece(Piece.createWhiteBishop());
+        addPiece(Piece.createWhiteKnight());
+        addPiece(Piece.createWhiteRook());
     }
     public void addBlankRow() {
         for(int i = 0; i < COL_CNT; i++) {
-            add(null);
+            addPiece(null);
         }
     }
 
