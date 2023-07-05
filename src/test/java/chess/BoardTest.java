@@ -17,6 +17,7 @@ public class BoardTest {
     }
 
     @Test
+    @DisplayName("초기화 후 보드를 출력한다.")
     public void print() throws Exception {
         board.initialize();
         System.out.println(board.showBoard());
