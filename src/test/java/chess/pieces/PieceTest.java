@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.*;
 
 public class PieceTest {
     @Test
-    @DisplayName("흰색 pawn/검은 knight 생성 후 color/representation이 맞아야 한다.")
+    @DisplayName("각 기물 생성 후 color/representation이 맞아야 한다.")
     public void create_piece() {
         verifyPiece(Piece.createWhitePawn(), Piece.WHITE_COLOR, Piece.WHITE_PAWN_REPRESENTATION);
         verifyPiece(Piece.createBlackPawn(), Piece.BLACK_COLOR, Piece.BLACK_PAWN_REPRESENTATION);
