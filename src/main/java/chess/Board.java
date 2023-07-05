@@ -34,21 +34,45 @@ public class Board {
     public void initialize() {
         int i;
         int startIdx, endIdx;
-        // 전체 null로 초기화
-        for (i = 0; i < ROW_CNT * COL_CNT; i++) {
-            this.pieceList.add(null);
-        }
+        // 흑색 기물(폰 제외) 셋팅
+        this.pieceList.add(Piece.createBlackRook());
+        this.pieceList.add(Piece.createBlackKnight());
+        this.pieceList.add(Piece.createBlackBishop());
+        this.pieceList.add(Piece.createBlackQueen());
+        this.pieceList.add(Piece.createBlackKing());
+        this.pieceList.add(Piece.createBlackBishop());
+        this.pieceList.add(Piece.createBlackKnight());
+        this.pieceList.add(Piece.createBlackRook());
         // 검은색 폰 셋팅
         startIdx = ROW_CNT * (BLACK_PAWN_ROW - 1);
         endIdx = startIdx + COL_CNT;
         for (i = startIdx; i < endIdx; i++) {
-            this.pieceList.set(i, Piece.createBlackPawn());
+            this.pieceList.add(Piece.createBlackPawn());
         }
+        // 빈 칸 4줄 셋팅
+        addBlankRow();
+        addBlankRow();
+        addBlankRow();
+        addBlankRow();
         // 흰색 폰 셋팅
         startIdx = ROW_CNT * (WHITE_PAWN_ROW - 1);
         endIdx = startIdx + COL_CNT;
         for (i = startIdx; i < endIdx; i++) {
-            this.pieceList.set(i, Piece.createWhitePawn());
+            this.pieceList.add(Piece.createWhitePawn());
+        }
+        // 백색 기물(폰 제외) 셋팅
+        this.pieceList.add(Piece.createWhiteRook());
+        this.pieceList.add(Piece.createWhiteKnight());
+        this.pieceList.add(Piece.createWhiteBishop());
+        this.pieceList.add(Piece.createWhiteQueen());
+        this.pieceList.add(Piece.createWhiteKing());
+        this.pieceList.add(Piece.createWhiteBishop());
+        this.pieceList.add(Piece.createWhiteKnight());
+        this.pieceList.add(Piece.createWhiteRook());
+    }
+    public void addBlankRow() {
+        for(int i=0; i<COL_CNT; i++) {
+            this.pieceList.add(null);
         }
     }
 
