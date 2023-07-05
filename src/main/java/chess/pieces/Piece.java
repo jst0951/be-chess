@@ -18,6 +18,14 @@ public class Piece {
         Type(char representation) {
             this.representation = representation;
         }
+
+        public char getWhiteRepresentation() {
+            return this.representation;
+        }
+
+        public char getBlackRepresentation() {
+            return Character.toUpperCase(this.representation);
+        }
     }
 
     public static final String PAWN_NAME = "pawn";
