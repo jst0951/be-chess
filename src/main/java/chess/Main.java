@@ -9,7 +9,7 @@ public class Main {
         // 게임 판 출력
         Board board = new Board();
         board.initialize();
-        System.out.println(board.print());
+        System.out.println(board.showBoard());
         // 게임 종료 처리
         waitUntilInputString("end");
     }

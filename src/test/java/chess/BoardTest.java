@@ -26,7 +26,7 @@ public class BoardTest {
     @Test
     public void print() throws Exception {
         board.initialize();
-        System.out.println(board.print());
+        System.out.println(board.showBoard());
     }
 
     @Test
@@ -37,9 +37,9 @@ public class BoardTest {
         String blankRank = appendNewLine("........");
         assertThat(board.showBoard()).isEqualTo(
                 appendNewLine("RNBQKBNR") +
-                appendNewLine("PPPPPPPP") +
-                blankRank + blankRank + blankRank + blankRank +
-                appendNewLine("pppppppp") +
-                appendNewLine("rnbqkbnr"));
+                        appendNewLine("PPPPPPPP") +
+                        blankRank + blankRank + blankRank + blankRank +
+                        appendNewLine("pppppppp") +
+                        appendNewLine("rnbqkbnr"));
     }
 }

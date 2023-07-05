@@ -83,7 +83,7 @@ public class Board {
         return sb.toString();
     }
 
-    public String print() {
+    public String showBoard() {
         StringBuilder sb = new StringBuilder();
         for(int i=0;i<64;i++) {
             if (this.pieceList.get(i) == null) {
@@ -104,7 +104,4 @@ public class Board {
         return -1;
     }
 
-    public String showBoard() {
-        return "";
-    }
 }
