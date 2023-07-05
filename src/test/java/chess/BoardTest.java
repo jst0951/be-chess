@@ -22,11 +22,25 @@ public class BoardTest {
         assertThat(board.size()).isEqualTo(2);
         assertThat(board.findPawn(1)).isEqualTo(pawn);
     }
-
     public Pawn addPawn(Board board, String color) {
         Pawn pawn = new Pawn(color);
         board.add(pawn);
 
         return pawn;
+    }
+
+    @Test
+    public void initialize() throws Exception {
+        Board board = new Board();
+        board.initialize();
+        assertThat(board.getWhitePawnsResult()).isEqualTo("pppppppp");
+        assertThat(board.getBlackPawnsResult()).isEqualTo("PPPPPPPP");
+    }
+
+    @Test
+    public void print() throws Exception {
+        Board board = new Board();
+        board.initialize();
+        System.out.println(board.print());
     }
 }
