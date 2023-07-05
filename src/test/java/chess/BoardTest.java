@@ -14,19 +14,18 @@ public class BoardTest {
     @BeforeEach
     public void setup() {
         board = new Board();
+        board.initialize();
     }
 
     @Test
     @DisplayName("초기화 후 보드를 출력한다.")
     public void print() throws Exception {
-        board.initialize();
         System.out.println(board.showBoard());
     }
 
     @Test
     @DisplayName("초기화 후 최초에 보드가 올바르게 표시되어야 한다.")
     public void create() throws Exception {
-        board.initialize();
         assertThat(board.pieceCount()).isEqualTo(32);
         String blankRank = appendNewLine("........");
         assertThat(board.showBoard()).isEqualTo(
