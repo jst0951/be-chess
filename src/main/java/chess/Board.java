@@ -8,6 +8,12 @@ import static utils.StringUtils.appendNewLine;
 
 public class Board {
     private List<Piece> pieceList;
+    private final int ROW_CNT = 8;
+    private final int COL_CNT = 8;
+    // ROW는 1부터 시작합니다.
+    private final int BLACK_PAWN_ROW = 2;
+    private final int WHITE_PAWN_ROW = 6;
+
 
     public Board() {
         this.pieceList = new ArrayList<>();
@@ -27,16 +33,21 @@ public class Board {
 
     public void initialize() {
         int i;
+        int startIdx, endIdx;
         // 전체 null로 초기화
-        for (i = 0; i < 8 * 8; i++) {
+        for (i = 0; i < ROW_CNT * COL_CNT; i++) {
             this.pieceList.add(null);
         }
         // 검은색 폰 셋팅
-        for (i = 8; i < 16; i++) {
+        startIdx = ROW_CNT * (BLACK_PAWN_ROW - 1);
+        endIdx = startIdx + COL_CNT;
+        for (i = startIdx; i < endIdx; i++) {
             this.pieceList.set(i, Piece.createBlackPawn());
         }
         // 흰색 폰 셋팅
-        for (i = 48; i < 56; i++) {
+        startIdx = ROW_CNT * (WHITE_PAWN_ROW - 1);
+        endIdx = startIdx + COL_CNT;
+        for (i = startIdx; i < endIdx; i++) {
             this.pieceList.set(i, Piece.createWhitePawn());
         }
     }
@@ -72,5 +83,13 @@ public class Board {
             }
         }
         return sb.toString();
+    }
+
+    public int pieceCount() {
+        return -1;
+    }
+
+    public String showBoard() {
+        return "";
     }
 }
