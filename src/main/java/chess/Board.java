@@ -8,6 +8,7 @@ import static utils.StringUtils.appendNewLine;
 
 public class Board {
     private List<Piece> pieceList;
+    private final int ROW_CNT = 8;
     private final int COL_CNT = 8;
 
     public Board() {
@@ -62,7 +63,7 @@ public class Board {
         this.pieceList.add(Piece.createWhiteRook());
     }
     public void addBlankRow() {
-        for(int i=0; i<COL_CNT; i++) {
+        for(int i = 0; i < COL_CNT; i++) {
             this.pieceList.add(null);
         }
     }
@@ -77,7 +78,7 @@ public class Board {
 
     public String rowToString(int start, int end) {
         StringBuilder sb = new StringBuilder();
-        for(int i=start;i<end;i++) {
+        for(int i=start; i<end; i++) {
             sb.append(this.pieceList.get(i).getRepresentation());
         }
         return sb.toString();
@@ -85,7 +86,7 @@ public class Board {
 
     public String showBoard() {
         StringBuilder sb = new StringBuilder();
-        for(int i=0;i<64;i++) {
+        for(int i = 0; i < ROW_CNT * COL_CNT; i++) {
             if (this.pieceList.get(i) == null) {
                 sb.append('.');
             }
@@ -102,7 +103,7 @@ public class Board {
 
     public int pieceCount() {
         int pCnt = 0;
-        for(int i=0;i<this.pieceList.size();i++) {
+        for(int i = 0; i < ROW_CNT * COL_CNT; i++) {
             if(this.pieceList.get(i) != null) {
                 pCnt++;
             }
