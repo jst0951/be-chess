@@ -8,12 +8,7 @@ import static utils.StringUtils.appendNewLine;
 
 public class Board {
     private List<Piece> pieceList;
-    private final int ROW_CNT = 8;
     private final int COL_CNT = 8;
-    // ROW는 1부터 시작합니다.
-    private final int BLACK_PAWN_ROW = 2;
-    private final int WHITE_PAWN_ROW = 6;
-
 
     public Board() {
         this.pieceList = new ArrayList<>();
@@ -44,9 +39,7 @@ public class Board {
         this.pieceList.add(Piece.createBlackKnight());
         this.pieceList.add(Piece.createBlackRook());
         // 검은색 폰 셋팅
-        startIdx = ROW_CNT * (BLACK_PAWN_ROW - 1);
-        endIdx = startIdx + COL_CNT;
-        for (i = startIdx; i < endIdx; i++) {
+        for (i = 0; i < COL_CNT; i++) {
             this.pieceList.add(Piece.createBlackPawn());
         }
         // 빈 칸 4줄 셋팅
@@ -55,9 +48,7 @@ public class Board {
         addBlankRow();
         addBlankRow();
         // 흰색 폰 셋팅
-        startIdx = ROW_CNT * (WHITE_PAWN_ROW - 1);
-        endIdx = startIdx + COL_CNT;
-        for (i = startIdx; i < endIdx; i++) {
+        for (i = 0; i < COL_CNT; i++) {
             this.pieceList.add(Piece.createWhitePawn());
         }
         // 백색 기물(폰 제외) 셋팅
