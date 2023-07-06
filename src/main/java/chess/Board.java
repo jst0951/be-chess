@@ -5,6 +5,7 @@ import chess.pieces.Piece;
 import java.util.ArrayList;
 import java.util.List;
 import static utils.StringUtils.appendNewLine;
+import chess.pieces.Piece.Color;
 import chess.pieces.Piece.Type;
 
 public class Board {
@@ -91,4 +92,14 @@ public class Board {
         return pCnt;
     }
 
+    public int pieceCount(Color color, Type type) {
+        int pCnt = 0;
+        for(Piece piece: pieceList) {
+            if(piece.getColor() == color && piece.getType() == type) {
+                pCnt ++;
+            }
+        }
+
+        return pCnt;
+    }
 }
