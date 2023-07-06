@@ -63,6 +63,11 @@ public class Board {
         addPiece(Piece.createWhiteKnight());
         addPiece(Piece.createWhiteRook());
     }
+    public void initializeEmpty() {
+        for(int i = 0; i < ROW_CNT; i++) {
+            addBlankRow();
+        }
+    }
     public void addBlankRow() {
         for(int i = 0; i < COL_CNT; i++) {
             addPiece(Piece.createBlank());

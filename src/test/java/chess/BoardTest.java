@@ -16,18 +16,19 @@ public class BoardTest {
     @BeforeEach
     public void setup() {
         board = new Board();
-        board.initialize();
     }
 
     @Test
     @DisplayName("초기화 후 보드를 출력한다.")
     public void print() throws Exception {
+        board.initialize();
         System.out.println(board.showBoard());
     }
 
     @Test
     @DisplayName("초기화 후 최초에 보드가 올바르게 표시되어야 한다.")
     public void create() throws Exception {
+        board.initialize();
         assertThat(board.pieceCount()).isEqualTo(32);
         String blankRank = appendNewLine("........");
         assertThat(board.showBoard()).isEqualTo(
@@ -59,18 +60,21 @@ public class BoardTest {
     @Test
     @DisplayName("모든 기물의 개수를 출력해야 한다.")
     public void pieceCount() {
+        board.initialize();
         assertThat(board.pieceCount()).isEqualTo(32);
     }
 
     @Test
     @DisplayName("특정 색과 종류에 해당하는 기물의 개수를 출력해야 한다.")
     public void specificPieceCount() {
+        board.initialize();
         assertThat(board.pieceCount(Color.BLACK, Type.PAWN)).isEqualTo(8);
     }
 
     @Test
     @DisplayName("주어진 위치의 기물이 조회된다.")
     public void findPiece() {
+        board.initialize();
         assertThat(board.findPiece("a8").getColor()).isEqualTo(Color.BLACK);
         assertThat(board.findPiece("a8").getType()).isEqualTo(Type.ROOK);
     }
