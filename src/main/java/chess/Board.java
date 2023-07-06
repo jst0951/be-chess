@@ -126,4 +126,20 @@ public class Board {
         int listIdx = posToIdx(position);
         this.pieceList.set(listIdx, piece);
     }
+
+    public double calculatePoint(Color color) {
+        List<Piece> nonBlankPieceList = new ArrayList<>();
+        for(Piece piece: pieceList) {
+            if(piece.getColor() == color) { // 주어진 색인 경우에만 추가
+                nonBlankPieceList.add(piece);
+            }
+        }
+        // 우선 모든 기물들의 기본 점수를 더한다.
+        double score = 0;
+        for(Piece piece: nonBlankPieceList) {
+            score += piece.getType().getDefaultPoint();
+        }
+
+        return score;
+    }
 }

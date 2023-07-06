@@ -93,7 +93,7 @@ public class BoardTest {
     }
 
     @Test
-    @DisplayName("각자의 점수를 계산해야한다.")
+    @DisplayName("각자의 점수를 계산해야한다.(폰이 같은 세로줄에 없는 경우)")
     public void calculatePoint() throws Exception {
         board.initializeEmpty();
 
@@ -107,8 +107,8 @@ public class BoardTest {
         addPiece("e1", Piece.createWhiteRook());
         addPiece("f1", Piece.createWhiteKing());
 
-        assertThat(board.caculcatePoint(Color.BLACK)).isEqualTo(15.0, withPrecision(0.01));
-        assertThat(board.caculcatePoint(Color.WHITE)).isEqualTo(7.0, withPrecision(0.01));
+        assertThat(board.calculatePoint(Color.BLACK)).isEqualTo(15.0, withPrecision(0.01));
+        assertThat(board.calculatePoint(Color.WHITE)).isEqualTo(7.0, withPrecision(0.01));
 
         System.out.println(board.showBoard());
     }
