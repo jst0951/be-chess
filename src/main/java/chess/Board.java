@@ -102,4 +102,15 @@ public class Board {
 
         return pCnt;
     }
+
+    public Piece checkPosition(String position) {
+        char x = position.charAt(0);
+        int xPos = x - 'a';
+        char y = position.charAt(1);
+        int yPos = 8 - Character.getNumericValue(y);
+
+        int listIdx = xPos * 8 + yPos;
+
+        return pieceList.get(listIdx);
+    }
 }
