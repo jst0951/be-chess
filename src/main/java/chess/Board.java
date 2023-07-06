@@ -1,75 +1,98 @@
 package chess;
 
-import chess.pieces.Pawn;
+import chess.pieces.Piece;
 
 import java.util.ArrayList;
 import java.util.List;
+import static utils.StringUtils.appendNewLine;
 
 public class Board {
-    private List<Pawn> pawnList;
+    private List<Piece> pieceList;
+    private final int ROW_CNT = 8;
+    private final int COL_CNT = 8;
 
     public Board() {
-        this.pawnList = new ArrayList<>();
+        this.pieceList = new ArrayList<>();
     }
 
-    public void add(Pawn pawn) {
-        this.pawnList.add(pawn);
+    public void addPiece(Piece piece) {
+        this.pieceList.add(piece);
     }
 
     public Integer size() {
-        return pawnList.size();
+        return pieceList.size();
     }
 
-    public Pawn findPawn(Integer idx) {
-        return this.pawnList.get(idx);
+    public Piece findPiece(int idx) {
+        return this.pieceList.get(idx);
     }
 
     public void initialize() {
         int i;
-        // 전체 null로 초기화
-        for (i = 0; i < 8 * 8; i++) {
-            this.pawnList.add(null);
-        }
+        // 흑색 기물(폰 제외) 셋팅
+        addPiece(Piece.createBlackRook());
+        addPiece(Piece.createBlackKnight());
+        addPiece(Piece.createBlackBishop());
+        addPiece(Piece.createBlackQueen());
+        addPiece(Piece.createBlackKing());
+        addPiece(Piece.createBlackBishop());
+        addPiece(Piece.createBlackKnight());
+        addPiece(Piece.createBlackRook());
         // 검은색 폰 셋팅
-        for (i = 8; i < 16; i++) {
-            this.pawnList.set(i, new Pawn(Pawn.BLACK_COLOR, Pawn.BLACK_REPRESENTATION));
+        for (i = 0; i < COL_CNT; i++) {
+            addPiece(Piece.createBlackPawn());
         }
+        // 빈 칸 4줄 셋팅
+        addBlankRow();
+        addBlankRow();
+        addBlankRow();
+        addBlankRow();
         // 흰색 폰 셋팅
-        for (i = 48; i < 56; i++) {
-            this.pawnList.set(i, new Pawn(Pawn.WHITE_COLOR, Pawn.WHITE_REPRESENTATION));
+        for (i = 0; i < COL_CNT; i++) {
+            addPiece(Piece.createWhitePawn());
+        }
+        // 백색 기물(폰 제외) 셋팅
+        addPiece(Piece.createWhiteRook());
+        addPiece(Piece.createWhiteKnight());
+        addPiece(Piece.createWhiteBishop());
+        addPiece(Piece.createWhiteQueen());
+        addPiece(Piece.createWhiteKing());
+        addPiece(Piece.createWhiteBishop());
+        addPiece(Piece.createWhiteKnight());
+        addPiece(Piece.createWhiteRook());
+    }
+    public void addBlankRow() {
+        for(int i = 0; i < COL_CNT; i++) {
+            addPiece(null);
         }
     }
 
-    public String getWhitePawnsResult() {
-        return rowToString(48, 56);
-    }
-
-    public String getBlackPawnsResult() {
-        return rowToString(8, 16);
-    }
-
-    public String rowToString(int start, int end) {
+    public String showBoard() {
         StringBuilder sb = new StringBuilder();
-        for(int i=start;i<end;i++) {
-            sb.append(this.pawnList.get(i).getRepresentation());
-        }
-        return sb.toString();
-    }
-
-    public String print() {
-        StringBuilder sb = new StringBuilder();
-        for(int i=0;i<64;i++) {
-            if (this.pawnList.get(i) == null) {
+        for(int i = 0; i < ROW_CNT * COL_CNT; i++) {
+            if (this.pieceList.get(i) == null) {
                 sb.append('.');
             }
             else {
-                sb.append(this.pawnList.get(i).getRepresentation());
+                sb.append(this.pieceList.get(i).getRepresentation());
             }
 
             if (i % 8 == 7) {
-                sb.append("\n");
+                appendNewLine(sb);
             }
         }
         return sb.toString();
     }
+
+    public int pieceCount() {
+        int pCnt = 0;
+        for(int i = 0; i < ROW_CNT * COL_CNT; i++) {
+            if(this.pieceList.get(i) != null) {
+                pCnt++;
+            }
+        }
+
+        return pCnt;
+    }
+
 }
