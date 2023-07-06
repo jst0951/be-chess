@@ -103,7 +103,7 @@ public class Board {
         return pCnt;
     }
 
-    public Piece checkPosition(String position) {
+    public Piece findPiece(String position) {
         char x = position.charAt(0);
         int xPos = x - 'a';
         char y = position.charAt(1);

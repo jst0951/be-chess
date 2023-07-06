@@ -70,8 +70,8 @@ public class BoardTest {
 
     @Test
     @DisplayName("주어진 위치의 기물이 조회된다.")
-    public void checkPosition() {
-        assertThat(board.checkPosition("a8").getColor()).isEqualTo(Color.BLACK);
-        assertThat(board.checkPosition("a8").getType()).isEqualTo(Type.ROOK);
+    public void findPiece() {
+        assertThat(board.findPiece("a8").getColor()).isEqualTo(Color.BLACK);
+        assertThat(board.findPiece("a8").getType()).isEqualTo(Type.ROOK);
     }
 }
