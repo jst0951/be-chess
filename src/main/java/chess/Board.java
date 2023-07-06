@@ -104,13 +104,16 @@ public class Board {
     }
 
     public Piece findPiece(String position) {
+        int listIdx = findIdx(position);
+        return pieceList.get(listIdx);
+    }
+
+    private int findIdx(String position) {
         char x = position.charAt(0);
         int xPos = x - 'a';
         char y = position.charAt(1);
         int yPos = 8 - Character.getNumericValue(y);
 
-        int listIdx = xPos * 8 + yPos;
-
-        return pieceList.get(listIdx);
+        return xPos * 8 + yPos;
     }
 }
