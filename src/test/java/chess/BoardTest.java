@@ -91,4 +91,28 @@ public class BoardTest {
         assertThat(board.findPiece(position)).isEqualTo(piece);
         System.out.println(board.showBoard());
     }
+
+    @Test
+    @DisplayName("각자의 점수를 계산해야한다.")
+    public void calculatePoint() throws Exception {
+        board.initializeEmpty();
+
+        addPiece("b6", Piece.createBlackPawn());
+        addPiece("e6", Piece.createBlackQueen());
+        addPiece("b8", Piece.createBlackKing());
+        addPiece("c8", Piece.createBlackRook());
+
+        addPiece("f2", Piece.createWhitePawn());
+        addPiece("g2", Piece.createWhitePawn());
+        addPiece("e1", Piece.createWhiteRook());
+        addPiece("f1", Piece.createWhiteKing());
+
+        assertThat(board.caculcatePoint(Color.BLACK)).isEqualTo(15.0, withPrecision(0.01));
+        assertThat(board.caculcatePoint(Color.WHITE)).isEqualTo(7.0, withPrecision(0.01));
+
+        System.out.println(board.showBoard());
+    }
+    private void addPiece(String position, Piece piece) {
+        board.move(position, piece);
+    }
 }
