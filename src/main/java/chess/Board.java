@@ -12,6 +12,7 @@ public class Board {
     private List<Piece> pieceList;
     private final int ROW_CNT = 8;
     private final int COL_CNT = 8;
+    private final double PAWN_SAMEROW_SCORE = 0.5;
 
     public Board() {
         this.pieceList = new ArrayList<>();
@@ -141,6 +142,17 @@ public class Board {
         }
 
         // 각 열별 pawn의 개수을 구하고, 각 목록의 길이에 따라 점수를 차감한다.
+        int[] pawnCntList = countPawn(color);
+        // 점수를 차감한다.
+        for(int i = 0; i < COL_CNT; i++) {
+            if(pawnCntList[i] > 1) {
+                score -= (pawnCntList[i] * PAWN_SAMEROW_SCORE);
+            }
+        }
+        return score;
+    }
+
+    private int[] countPawn(Color color) {
         // 1. 각 열별 pawn의 개수를 저장할 list를 생성한다.
         int[] pawnCntList = new int[COL_CNT];
         Arrays.fill(pawnCntList, 0);
@@ -151,12 +163,46 @@ public class Board {
                 pawnCntList[xPos] += 1;
             }
         }
-        // 3. 점수를 차감한다.
-        for(int i = 0; i < COL_CNT; i++) {
-            if(pawnCntList[i] > 1) {
-                score -= (pawnCntList[i] * 0.5);
+
+        return pawnCntList;
+    }
+
+    public List<Piece> pieceListSortedByScoreAsc(Color color) {
+        // 1. 각 piece에 대해 기본 점수로 Hashmap을 만든다.
+        Map<Piece, Double> scoreMap = new HashMap<>();
+        for(Piece piece: pieceList) {
+            if(piece.getColor() == color) {
+                scoreMap.put(piece, piece.getType().getDefaultPoint());
             }
         }
-        return score;
+        // 2. pawn이 같은 세로줄에 있는 경우, 0.5점을 넣는다.
+        int[] pawnCntList = countPawn(color);
+        for(int idx = 0; idx < ROW_CNT * COL_CNT; idx++) {
+            if(pieceList.get(idx).getColor() == color && pieceList.get(idx).getType() == Type.PAWN) {
+                int xPos = idx % 8;
+                if(pawnCntList[xPos] > 1) {
+                    scoreMap.put(pieceList.get(idx), PAWN_SAMEROW_SCORE);
+                }
+            }
+        }
+
+        // 3. scoreMap의 value 기준으로 정렬한다.
+        List<Piece> keySet = new ArrayList<>(scoreMap.keySet());
+        // 오름차순 정렬
+        keySet.sort(new Comparator<Piece>() {
+            @Override
+            public int compare(Piece o1, Piece o2) {
+                return scoreMap.get(o1).compareTo(scoreMap.get(o2));
+            }
+        });
+
+        return keySet;
     }
+
+    public List<Piece> pieceListSortedByScoreDesc(Color color) {
+        List<Piece> sorted = pieceListSortedByScoreAsc(color);
+        Collections.reverse(sorted);
+        return sorted;
+    }
+
 }

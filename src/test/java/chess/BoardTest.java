@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import chess.pieces.Piece.Type;
 import chess.pieces.Piece.Color;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.*;
 import static utils.StringUtils.appendNewLine;
 
@@ -141,5 +143,55 @@ public class BoardTest {
     }
     private void addPiece(String position, Piece piece) {
         board.move(position, piece);
+    }
+
+    @Test
+    @DisplayName("기물의 점수가 오름차순으로 정렬되어야 한다.")
+    public void sortByScoreAsc() {
+        board.initializeEmpty();
+
+        addPiece("b8", Piece.createBlackKing());
+        addPiece("c8", Piece.createBlackRook());
+        addPiece("a7", Piece.createBlackPawn());
+        addPiece("c7", Piece.createBlackPawn());
+        addPiece("d7", Piece.createBlackBishop());
+        addPiece("b6", Piece.createBlackPawn());
+        addPiece("e6", Piece.createBlackQueen());
+
+        addPiece("f4", Piece.createWhiteKnight());
+        addPiece("g4", Piece.createWhiteQueen());
+        addPiece("f3", Piece.createWhitePawn());
+        addPiece("h3", Piece.createWhitePawn());
+        addPiece("f2", Piece.createWhitePawn());
+        addPiece("g2", Piece.createWhitePawn());
+        addPiece("e1", Piece.createWhiteRook());
+        addPiece("f1", Piece.createWhiteKing());
+
+        List<Piece> sortedPieceList = board.pieceListSortedByScoreAsc(Color.WHITE);
+    }
+
+    @Test
+    @DisplayName("기물의 점수가 내림차순으로 정렬되어야 한다.")
+    public void sortByScoreDesc() {
+        board.initializeEmpty();
+
+        addPiece("b8", Piece.createBlackKing());
+        addPiece("c8", Piece.createBlackRook());
+        addPiece("a7", Piece.createBlackPawn());
+        addPiece("c7", Piece.createBlackPawn());
+        addPiece("d7", Piece.createBlackBishop());
+        addPiece("b6", Piece.createBlackPawn());
+        addPiece("e6", Piece.createBlackQueen());
+
+        addPiece("f4", Piece.createWhiteKnight());
+        addPiece("g4", Piece.createWhiteQueen());
+        addPiece("f3", Piece.createWhitePawn());
+        addPiece("h3", Piece.createWhitePawn());
+        addPiece("f2", Piece.createWhitePawn());
+        addPiece("g2", Piece.createWhitePawn());
+        addPiece("e1", Piece.createWhiteRook());
+        addPiece("f1", Piece.createWhiteKing());
+
+        List<Piece> sortedPieceList = board.pieceListSortedByScoreDesc(Color.WHITE);
     }
 }
