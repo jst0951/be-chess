@@ -2,9 +2,8 @@ package chess;
 
 import chess.pieces.Piece;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+
 import static utils.StringUtils.appendNewLine;
 import chess.pieces.Piece.Color;
 import chess.pieces.Piece.Type;
@@ -152,9 +151,9 @@ public class Board {
                 pawnCntList[xPos] += 1;
             }
         }
-        // 점수를 차감한다.
+        // 3. 점수를 차감한다.
         for(int i = 0; i < COL_CNT; i++) {
-            if(pawnCntList[i] != 1) {
+            if(pawnCntList[i] > 1) {
                 score -= (pawnCntList[i] * 0.5);
             }
         }
