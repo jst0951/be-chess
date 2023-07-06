@@ -109,11 +109,11 @@ public class Board {
     }
 
     public Piece findPiece(String position) {
-        int listIdx = findIdx(position);
+        int listIdx = posToIdx(position);
         return pieceList.get(listIdx);
     }
 
-    private int findIdx(String position) {
+    private int posToIdx(String position) {
         char x = position.charAt(0);
         int xPos = x - 'a';
         char y = position.charAt(1);
@@ -123,7 +123,7 @@ public class Board {
     }
 
     public void move(String position, Piece piece) {
-        int listIdx = findIdx(position);
+        int listIdx = posToIdx(position);
         this.pieceList.set(listIdx, piece);
     }
 }
