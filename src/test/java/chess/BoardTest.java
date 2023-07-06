@@ -67,4 +67,11 @@ public class BoardTest {
     public void specificPieceCount() {
         assertThat(board.pieceCount(Color.BLACK, Type.PAWN)).isEqualTo(8);
     }
+
+    @Test
+    @DisplayName("주어진 위치의 기물이 조회된다.")
+    public void checkPosition() {
+        assertThat(board.checkPosition("a8").getColor()).isEqualTo(Color.BLACK);
+        assertThat(board.checkPosition("a8").getType()).isEqualTo(Type.ROOK);
+    }
 }
