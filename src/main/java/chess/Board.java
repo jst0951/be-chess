@@ -3,6 +3,7 @@ package chess;
 import chess.pieces.Piece;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import static utils.StringUtils.appendNewLine;
 import chess.pieces.Piece.Color;
@@ -140,6 +141,23 @@ public class Board {
             score += piece.getType().getDefaultPoint();
         }
 
+        // 각 열별 pawn의 개수을 구하고, 각 목록의 길이에 따라 점수를 차감한다.
+        // 1. 각 열별 pawn의 개수를 저장할 list를 생성한다.
+        int[] pawnCntList = new int[COL_CNT];
+        Arrays.fill(pawnCntList, 0);
+        // 2. 각 pawn의 위치에 따라 list에 저장한다.
+        for(int idx = 0; idx < ROW_CNT * COL_CNT; idx++) {
+            if(pieceList.get(idx).getColor() == color && pieceList.get(idx).getType() == Type.PAWN) {
+                int xPos = idx % 8;
+                pawnCntList[xPos] += 1;
+            }
+        }
+        // 점수를 차감한다.
+        for(int i = 0; i < COL_CNT; i++) {
+            if(pawnCntList[i] != 1) {
+                score -= (pawnCntList[i] * 0.5);
+            }
+        }
         return score;
     }
 }
