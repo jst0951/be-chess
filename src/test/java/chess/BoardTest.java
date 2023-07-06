@@ -194,4 +194,22 @@ public class BoardTest {
 
         List<Piece> sortedPieceList = board.pieceListSortedByScoreDesc(Color.WHITE);
     }
+
+    @Test
+    @DisplayName("기물을 현재 위치에서 다른 위치로 이동한다(기물 이동 원칙은 무시)")
+    public void move() throws Exception {
+        // Given
+        board.initialize();
+
+        // When
+        String sourcePosition = "b2";
+        String targetPosition = "b3";
+        board.move(sourcePosition, targetPosition);
+
+        // Then
+        assertThat(board.findPiece(sourcePosition).getColor()).isEqualTo(Color.NOCOLOR);
+        assertThat(board.findPiece(sourcePosition).getType()).isEqualTo(Type.NO_PIECE);
+        assertThat(board.findPiece(targetPosition).getColor()).isEqualTo(Color.WHITE);
+        assertThat(board.findPiece(targetPosition).getType()).isEqualTo(Type.QUEEN);
+    }
 }
