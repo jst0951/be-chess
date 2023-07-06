@@ -119,6 +119,11 @@ public class Board {
         char y = position.charAt(1);
         int yPos = 8 - Character.getNumericValue(y);
 
-        return xPos * 8 + yPos;
+        return yPos * 8 + xPos;
+    }
+
+    public void move(String position, Piece piece) {
+        int listIdx = findIdx(position);
+        this.pieceList.set(listIdx, piece);
     }
 }
