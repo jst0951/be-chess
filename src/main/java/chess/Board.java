@@ -4,7 +4,6 @@ import chess.pieces.Piece;
 
 import java.util.*;
 
-import static utils.StringUtils.appendNewLine;
 import chess.pieces.Piece.Color;
 import chess.pieces.Piece.Type;
 
@@ -15,10 +14,12 @@ public class Board {
 
     private final List<Piece> pieceList;
     private final View view;
+    private final Game game;
 
     public Board() {
         this.pieceList = new ArrayList<>();
         this.view = new View(pieceList);
+        this.game = new Game(pieceList);
     }
 
     public void addPiece(Piece piece) {
@@ -107,10 +108,6 @@ public class Board {
         return pCnt;
     }
 
-    public void move(Position position, Piece piece) {
-        this.pieceList.set(position.getListIdx(), piece);
-    }
-
     public double calculatePoint(Color color) {
         List<Piece> nonBlankPieceList = new ArrayList<>();
         for(Piece piece: pieceList) {
@@ -186,10 +183,11 @@ public class Board {
         return sorted;
     }
 
-    public void move(Position sourcePosition, Position targetPosition) {
-        Piece piece = findPiece(sourcePosition);
 
-        this.pieceList.set(sourcePosition.getListIdx(), Piece.createBlank());
-        this.pieceList.set(targetPosition.getListIdx(), piece);
+    public void move(Position position, Piece piece) {
+        game.move(position, piece);
+    }
+    public void move(Position sourcePosition, Position targetPosition) {
+        game.move(sourcePosition, targetPosition);
     }
 }
