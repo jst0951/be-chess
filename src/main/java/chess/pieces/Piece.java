@@ -14,8 +14,8 @@ public class Piece {
         KING('k', 0.0),
         NO_PIECE('.', 0.0);
 
-        private char representation;
-        private double defaultPoint;
+        private final char representation;
+        private final double defaultPoint;
         Type(char representation, double defaultPoint) {
             this.representation = representation;
             this.defaultPoint = defaultPoint;
@@ -34,8 +34,8 @@ public class Piece {
         }
     }
 
-    private Color color;
-    private Type type;
+    private final Color color;
+    private final Type type;
 
     private Piece(Color color, Type type){
         this.color = color;
