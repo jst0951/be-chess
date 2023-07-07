@@ -77,8 +77,8 @@ public class BoardTest {
     @DisplayName("주어진 위치의 기물이 조회된다.")
     public void findPiece() {
         board.initialize();
-        assertThat(board.findPiece("a8").getColor()).isEqualTo(Color.BLACK);
-        assertThat(board.findPiece("a8").getType()).isEqualTo(Type.ROOK);
+        assertThat(board.findPiece(new Position("a8")).getColor()).isEqualTo(Color.BLACK);
+        assertThat(board.findPiece(new Position("a8")).getType()).isEqualTo(Type.ROOK);
     }
 
     @Test
@@ -88,9 +88,9 @@ public class BoardTest {
 
         String position = "b5";
         Piece piece = Piece.createBlackRook();
-        board.move(position, piece);
+        board.move(new Position(position), piece);
 
-        assertThat(board.findPiece(position)).isEqualTo(piece);
+        assertThat(board.findPiece(new Position(position))).isEqualTo(piece);
         System.out.println(board.showBoard());
     }
 
@@ -142,7 +142,7 @@ public class BoardTest {
         System.out.println(board.showBoard());
     }
     private void addPiece(String position, Piece piece) {
-        board.move(position, piece);
+        board.move(new Position(position), piece);
     }
 
     @Test
@@ -207,9 +207,9 @@ public class BoardTest {
         board.move(sourcePosition, targetPosition);
 
         // Then
-        assertThat(board.findPiece(sourcePosition).getColor()).isEqualTo(Color.NOCOLOR);
-        assertThat(board.findPiece(sourcePosition).getType()).isEqualTo(Type.NO_PIECE);
-        assertThat(board.findPiece(targetPosition).getColor()).isEqualTo(Color.WHITE);
-        assertThat(board.findPiece(targetPosition).getType()).isEqualTo(Type.QUEEN);
+        assertThat(board.findPiece(new Position(sourcePosition)).getColor()).isEqualTo(Color.NOCOLOR);
+        assertThat(board.findPiece(new Position(sourcePosition)).getType()).isEqualTo(Type.NO_PIECE);
+        assertThat(board.findPiece(new Position(targetPosition)).getColor()).isEqualTo(Color.WHITE);
+        assertThat(board.findPiece(new Position(targetPosition)).getType()).isEqualTo(Type.QUEEN);
     }
 }

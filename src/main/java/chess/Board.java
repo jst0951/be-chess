@@ -9,10 +9,15 @@ import chess.pieces.Piece.Color;
 import chess.pieces.Piece.Type;
 
 public class Board {
-    private List<Piece> pieceList;
-    private final int ROW_CNT = 8;
-    private final int COL_CNT = 8;
-    private final double PAWN_SAMEROW_SCORE = 0.5;
+    private static final int ROW_CNT = 8;
+    private static final int COL_CNT = 8;
+    private static final double PAWN_SAMEROW_SCORE = 0.5;
+
+    private final List<Piece> pieceList;
+
+    public int size() {
+        return pieceList.size();
+    }
 
     public Board() {
         this.pieceList = new ArrayList<>();
@@ -22,12 +27,11 @@ public class Board {
         this.pieceList.add(piece);
     }
 
-    public Integer size() {
-        return pieceList.size();
-    }
-
     public Piece findPiece(int idx) {
         return this.pieceList.get(idx);
+    }
+    public Piece findPiece(Position position) {
+        return pieceList.get(position.getListIdx());
     }
 
     public void initialize() {
@@ -80,7 +84,7 @@ public class Board {
         for(int i = 0; i < ROW_CNT * COL_CNT; i++) {
             sb.append(this.pieceList.get(i).getRepresentation());
 
-            if (i % 8 == 7) {
+            if (i % COL_CNT == (COL_CNT - 1)) {
                 appendNewLine(sb);
             }
         }
@@ -109,23 +113,8 @@ public class Board {
         return pCnt;
     }
 
-    public Piece findPiece(String position) {
-        int listIdx = posToIdx(position);
-        return pieceList.get(listIdx);
-    }
-
-    private int posToIdx(String position) {
-        char x = position.charAt(0);
-        int xPos = x - 'a';
-        char y = position.charAt(1);
-        int yPos = 8 - Character.getNumericValue(y);
-
-        return yPos * 8 + xPos;
-    }
-
-    public void move(String position, Piece piece) {
-        int listIdx = posToIdx(position);
-        this.pieceList.set(listIdx, piece);
+    public void move(Position position, Piece piece) {
+        this.pieceList.set(position.getListIdx(), piece);
     }
 
     public double calculatePoint(Color color) {
@@ -135,6 +124,7 @@ public class Board {
                 nonBlankPieceList.add(piece);
             }
         }
+
         // 우선 모든 기물들의 기본 점수를 더한다.
         double score = 0;
         for(Piece piece: nonBlankPieceList) {
@@ -149,6 +139,7 @@ public class Board {
                 score -= (pawnCntList[i] * PAWN_SAMEROW_SCORE);
             }
         }
+
         return score;
     }
 
@@ -189,12 +180,7 @@ public class Board {
         // 3. scoreMap의 value 기준으로 정렬한다.
         List<Piece> keySet = new ArrayList<>(scoreMap.keySet());
         // 오름차순 정렬
-        keySet.sort(new Comparator<Piece>() {
-            @Override
-            public int compare(Piece o1, Piece o2) {
-                return scoreMap.get(o1).compareTo(scoreMap.get(o2));
-            }
-        });
+        keySet.sort(Comparator.comparing(scoreMap::get));
 
         return keySet;
     }
@@ -202,7 +188,11 @@ public class Board {
     public List<Piece> pieceListSortedByScoreDesc(Color color) {
         List<Piece> sorted = pieceListSortedByScoreAsc(color);
         Collections.reverse(sorted);
+
         return sorted;
     }
 
+    public void move(String sourcePosition, String targetPosition) {
+
+    }
 }
