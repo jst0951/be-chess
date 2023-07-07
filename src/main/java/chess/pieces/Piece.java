@@ -127,4 +127,8 @@ public class Piece {
     public boolean isWhite() {
         return this.color.equals(Color.WHITE);
     }
+
+    public boolean isEmpty() {
+        return this.color.equals(Color.NOCOLOR);
+    }
 }

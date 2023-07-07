@@ -1,6 +1,8 @@
 package chess;
 
 import chess.pieces.Piece;
+import static chess.Board.ROW_CNT;
+import static chess.Board.COL_CNT;
 
 import java.util.List;
 
@@ -17,7 +19,36 @@ public class Game {
     public void move(Position sourcePosition, Position targetPosition) {
         Piece piece = pieceList.get(sourcePosition.getListIdx());
 
-        this.pieceList.set(sourcePosition.getListIdx(), Piece.createBlank());
-        this.pieceList.set(targetPosition.getListIdx(), piece);
+        if (isMovable(sourcePosition, targetPosition)) {
+            this.pieceList.set(sourcePosition.getListIdx(), Piece.createBlank());
+            this.pieceList.set(targetPosition.getListIdx(), piece);
+        }
+    }
+
+    public boolean isMovable(Position sourcePosition, Position targetPosition) {
+        // 원본 좌표가 벗어나지 않는지 계산
+        if(sourcePosition.getXPos() < 0) {
+            return false;
+        }
+        if(sourcePosition.getYPos() < 0) {
+            return false;
+        }
+        // 목표 좌표가 벗어나지 않는지 계산
+        if(targetPosition.getXPos() >= COL_CNT) {
+            return false;
+        }
+        if(targetPosition.getYPos() >= ROW_CNT) {
+            return false;
+        }
+
+        // 이동하려는 위치에 같은 편의 기물이 있는지 확인
+        if(pieceList.get(targetPosition.getListIdx()).isEmpty()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+
+        //TODO 각 기물이 행할 수 있는 움직임인지 판별
     }
 }
