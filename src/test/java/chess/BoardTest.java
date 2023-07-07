@@ -204,12 +204,12 @@ public class BoardTest {
         // When
         String sourcePosition = "b2";
         String targetPosition = "b3";
-        board.move(sourcePosition, targetPosition);
+        board.move(new Position(sourcePosition), new Position(targetPosition));
 
         // Then
         assertThat(board.findPiece(new Position(sourcePosition)).getColor()).isEqualTo(Color.NOCOLOR);
         assertThat(board.findPiece(new Position(sourcePosition)).getType()).isEqualTo(Type.NO_PIECE);
         assertThat(board.findPiece(new Position(targetPosition)).getColor()).isEqualTo(Color.WHITE);
-        assertThat(board.findPiece(new Position(targetPosition)).getType()).isEqualTo(Type.QUEEN);
+        assertThat(board.findPiece(new Position(targetPosition)).getType()).isEqualTo(Type.PAWN);
     }
 }

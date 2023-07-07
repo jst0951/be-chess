@@ -192,7 +192,10 @@ public class Board {
         return sorted;
     }
 
-    public void move(String sourcePosition, String targetPosition) {
+    public void move(Position sourcePosition, Position targetPosition) {
+        Piece piece = findPiece(sourcePosition);
 
+        this.pieceList.set(sourcePosition.getListIdx(), Piece.createBlank());
+        this.pieceList.set(targetPosition.getListIdx(), piece);
     }
 }
