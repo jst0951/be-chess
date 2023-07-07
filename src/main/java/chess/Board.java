@@ -9,18 +9,16 @@ import chess.pieces.Piece.Color;
 import chess.pieces.Piece.Type;
 
 public class Board {
-    private static final int ROW_CNT = 8;
-    private static final int COL_CNT = 8;
-    private static final double PAWN_SAMEROW_SCORE = 0.5;
+    public static final int ROW_CNT = 8;
+    public static final int COL_CNT = 8;
+    public static final double PAWN_SAMEROW_SCORE = 0.5;
 
     private final List<Piece> pieceList;
-
-    public int size() {
-        return pieceList.size();
-    }
+    private final View view;
 
     public Board() {
         this.pieceList = new ArrayList<>();
+        this.view = new View(pieceList);
     }
 
     public void addPiece(Piece piece) {
@@ -79,16 +77,12 @@ public class Board {
         }
     }
 
-    public String showBoard() {
-        StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < ROW_CNT * COL_CNT; i++) {
-            sb.append(this.pieceList.get(i).getRepresentation());
+    public int size() {
+        return pieceList.size();
+    }
 
-            if (i % COL_CNT == (COL_CNT - 1)) {
-                appendNewLine(sb);
-            }
-        }
-        return sb.toString();
+    public String showBoard() {
+        return view.showBoard();
     }
 
     public int pieceCount() {
