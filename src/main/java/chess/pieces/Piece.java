@@ -1,5 +1,8 @@
 package chess.pieces;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Piece {
     public enum Color {
         WHITE, BLACK, NOCOLOR;
@@ -31,6 +34,59 @@ public class Piece {
 
         public double getDefaultPoint() {
             return this.defaultPoint;
+        }
+    }
+
+    public enum Direction {
+        EAST(1, 0),
+        WEST(-1, 0),
+        SOUTH(0, 1),
+        NORTH(0, -1),
+        NORTHEAST(1, -1),
+        SOUTHEAST(1, 1),
+        SOUTHWEST(-1, 1),
+        NORTHWEST(-1, -1),
+
+        NNE(1, -2),
+        NNW(-1, -2),
+        SSE(1, 2),
+        SSW(-1, 2),
+        EEN(2, -1),
+        EES(2, 1),
+        WWN(-2, -1),
+        WWS(-2, 1);
+
+
+        private int xDegree;
+        private int yDegree;
+
+        private Direction(int xDegree, int yDegree) {
+            this.xDegree = xDegree;
+            this.yDegree = yDegree;
+        }
+
+        public static List<Direction> linearDirection() {
+            return Arrays.asList(EAST, WEST, SOUTH, NORTH);
+        }
+
+        public static List<Direction> diagonalDirection() {
+            return Arrays.asList(NORTHEAST, SOUTHEAST, SOUTHWEST, NORTHWEST);
+        }
+
+        public static List<Direction> everyDirection() {
+            return Arrays.asList(EAST, WEST, SOUTH, NORTH, NORTHEAST, SOUTHEAST, SOUTHWEST, NORTHWEST);
+        }
+
+        public static List<Direction> knightDirection() {
+            return Arrays.asList(NNE, NNW, SSE, SSW, EEN, EES, WWN, WWS);
+        }
+
+        public static List<Direction> whitePawnDirection() {
+            return Arrays.asList(NORTH, NORTHEAST, NORTHWEST);
+        }
+
+        public static List<Direction> blackPawnDirection() {
+            return Arrays.asList(SOUTH, SOUTHEAST, SOUTHWEST);
         }
     }
 
