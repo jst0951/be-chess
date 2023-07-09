@@ -1,5 +1,8 @@
 package chess.pieces;
 
+import chess.Board;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -65,6 +68,14 @@ public class Piece {
             this.yDegree = yDegree;
         }
 
+        public int getXDegree() {
+            return this.xDegree;
+        }
+
+        public int getYDegree() {
+            return this.yDegree;
+        }
+
         public static List<Direction> linearDirection() {
             return Arrays.asList(EAST, WEST, SOUTH, NORTH);
         }
@@ -92,10 +103,39 @@ public class Piece {
 
     private final Color color;
     private final Type type;
+    private final List<Direction> directionList;
 
     private Piece(Color color, Type type){
         this.color = color;
         this.type = type;
+        this.directionList = getDirectionList(color, type);
+    }
+    private List<Direction> getDirectionList(Color color, Type type) {
+        if(type == Type.KING) {
+            return Direction.everyDirection();
+        }
+        if(type == Type.ROOK) {
+            return Direction.linearDirection();
+        }
+        if(type == Type.BISHOP) {
+            return Direction.diagonalDirection();
+        }
+        if(type == Type.QUEEN) {
+            return Direction.everyDirection();
+        }
+        if(type == Type.KNIGHT) {
+            return Direction.knightDirection();
+        }
+        if(type == Type.PAWN) {
+            if(color == Color.WHITE) {
+                return Direction.whitePawnDirection();
+            }
+            else{
+                return Direction.blackPawnDirection();
+            }
+        }
+
+        return new ArrayList<>();
     }
 
     public static Piece createBlank() {
@@ -164,6 +204,10 @@ public class Piece {
 
     public Type getType() {
         return this.type;
+    }
+
+    public List<Direction> getDirectionList() {
+        return this.directionList;
     }
 
     public char getRepresentation() {
