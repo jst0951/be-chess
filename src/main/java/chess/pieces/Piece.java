@@ -10,7 +10,6 @@ public class Piece {
     public enum Color {
         WHITE, BLACK, NOCOLOR;
     }
-
     public enum Type {
         PAWN('p', 1.0),
         ROOK('r', 5.0),
@@ -39,7 +38,6 @@ public class Piece {
             return this.defaultPoint;
         }
     }
-
     public enum Direction {
         EAST(1, 0),
         WEST(-1, 0),
@@ -60,8 +58,8 @@ public class Piece {
         WWS(-2, 1);
 
 
-        private int xDegree;
-        private int yDegree;
+        private final int xDegree;
+        private final int yDegree;
 
         private Direction(int xDegree, int yDegree) {
             this.xDegree = xDegree;
@@ -141,59 +139,45 @@ public class Piece {
     public static Piece createBlank() {
         return new Piece(Color.NOCOLOR, Type.NO_PIECE);
     }
-
     private static Piece createWhite(Type type) {
         return new Piece(Color.WHITE, type);
     }
-
     private static Piece createBlack(Type type) {
         return new Piece(Color.BLACK, type);
     }
-
     public static Piece createWhitePawn() {
         return createWhite(Type.PAWN);
     }
-
     public static Piece createBlackPawn() {
         return createBlack(Type.PAWN);
     }
-
     public static Piece createWhiteKnight() {
         return createWhite(Type.KNIGHT);
     }
-
     public static Piece createBlackKnight() {
         return createBlack(Type.KNIGHT);
     }
-
     public static Piece createWhiteRook() {
         return createWhite(Type.ROOK);
     }
-
     public static Piece createBlackRook() {
         return createBlack(Type.ROOK);
     }
-
     public static Piece createWhiteBishop() {
         return createWhite(Type.BISHOP);
     }
-
     public static Piece createBlackBishop() {
         return createBlack(Type.BISHOP);
     }
-
     public static Piece createWhiteQueen() {
         return createWhite(Type.QUEEN);
     }
-
     public static Piece createBlackQueen() {
         return createBlack(Type.QUEEN);
     }
-
     public static Piece createWhiteKing() {
         return createWhite(Type.KING);
     }
-
     public static Piece createBlackKing() {
         return createBlack(Type.KING);
     }
@@ -201,11 +185,9 @@ public class Piece {
     public Color getColor() {
         return this.color;
     }
-
     public Type getType() {
         return this.type;
     }
-
     public List<Direction> getDirectionList() {
         return this.directionList;
     }
@@ -223,11 +205,9 @@ public class Piece {
     public boolean isBlack() {
         return this.color.equals(Color.BLACK);
     }
-
     public boolean isWhite() {
         return this.color.equals(Color.WHITE);
     }
-
     public boolean isEmpty() {
         return this.color.equals(Color.NOCOLOR);
     }
