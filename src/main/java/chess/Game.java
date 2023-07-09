@@ -42,13 +42,11 @@ public class Game {
         }
 
         // 이동하려는 위치에 같은 편의 기물이 있는지 확인
-        if(pieceList.get(targetPosition.getListIdx()).isEmpty()) {
-            return true;
-        }
-        else {
+        if(pieceList.get(targetPosition.getListIdx()).getType() == pieceList.get(sourcePosition.getListIdx()).getType()) {
             return false;
         }
 
         //TODO 각 기물이 행할 수 있는 움직임인지 판별
+
     }
 }
