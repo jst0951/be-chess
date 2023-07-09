@@ -46,7 +46,15 @@ public class Game {
             return false;
         }
 
-        //TODO 각 기물이 행할 수 있는 움직임인지 판별
+        // 각 기물이 행할 수 있는 움직임인지 판별
+        Piece piece = pieceList.get(sourcePosition.getListIdx());
+        int xDegree = targetPosition.getXPos() - sourcePosition.getXPos();
+        int yDegree = targetPosition.getYPos() - sourcePosition.getYPos();
+        if(!piece.isDirectionAvailable(xDegree, yDegree)) {
+            return false;
+        }
 
+        return true;
     }
+
 }

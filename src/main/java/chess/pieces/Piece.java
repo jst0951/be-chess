@@ -211,4 +211,34 @@ public class Piece {
     public boolean isEmpty() {
         return this.color.equals(Color.NOCOLOR);
     }
+
+    public boolean isDirectionAvailable(int xDegree, int yDegree) {
+        int xDegreeFlat = flatten(xDegree);
+        int yDegreeFlat = flatten(yDegree);
+
+        for(Direction direction: this.directionList) {
+            switch (this.type) {
+                // 정해진 칸으로만 이동 가능한 경우
+                case KING: case KNIGHT: case PAWN:
+                    if(direction.getXDegree() == xDegreeFlat && direction.getYDegree() == yDegreeFlat) {
+                        return true;
+                    }
+                // 칸수 제한 없이 이동 가능한 경우
+                case ROOK: case BISHOP: case QUEEN:
+                    if(direction.getXDegree() == xDegreeFlat && direction.getYDegree() == yDegreeFlat) {
+                        return true;
+                    }
+                default:
+            }
+        }
+
+        return false;
+    }
+    private int flatten(int degree) {
+        if(degree != 0) {
+            degree /= Math.abs(degree);
+        }
+        return degree;
+    }
+
 }
