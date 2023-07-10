@@ -1,5 +1,7 @@
 import chess.Board;
+import chess.Game;
 import chess.Position;
+import chess.View;
 
 import static utils.StringUtils.appendNewLine;
 
@@ -22,8 +24,11 @@ public class Main {
 
     private static void playGame() {
         Board board = new Board();
+        Game game = new Game(board);
+        View view = new View(board);
+
         board.initialize();
-        System.out.println(board.showBoard());
+        System.out.println(view.showBoard());
 
         Scanner in = new Scanner(System.in);
 
@@ -35,8 +40,8 @@ public class Main {
             }
             else if(inputString.startsWith("move")) {
                 String[] tokens = inputString.split(" ");
-                board.move(new Position(tokens[1]), new Position(tokens[2]));
-                System.out.println(board.showBoard());
+                game.move(new Position(tokens[1]), new Position(tokens[2]));
+                System.out.println(view.showBoard());
             }
             else {
                 System.out.println(ERROR_MESSAGE_GAME);

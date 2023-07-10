@@ -11,8 +11,8 @@ import static utils.StringUtils.appendNewLine;
 public class View {
     private final List<Piece> pieceList;
 
-    public View(List<Piece> pieceList) {
-        this.pieceList = pieceList;
+    public View(Board board) {
+        this.pieceList = board.getPieceList();
     }
 
     public String showBoard() {
