@@ -17,7 +17,7 @@ public class Main {
 
     public static void main(String[] args) {
         // 게임 시작 처리
-        waitUntilInputString("start");
+        waitUntilInput();
         // 게임 진행
         playGame();
     }
@@ -49,12 +49,12 @@ public class Main {
         }
     }
 
-    private static void waitUntilInputString(String targetStr) {
+    private static void waitUntilInput() {
         Scanner in = new Scanner(System.in);
 
         while(true) {
             String inputString = in.next();
-            if(inputString.equals(targetStr)) {
+            if(inputString.equals("start")) {
                 System.out.println(INFO_GAME_START);
                 break;
             }
