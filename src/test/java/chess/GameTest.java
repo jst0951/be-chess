@@ -119,8 +119,8 @@ class GameTest {
     }
 
     @Test
-    @DisplayName("시작 위치, 이동 위치가 주어졌을 때 움직일 수 있는지 검증에 성공한다.")
-    public void isMovableTest() {
+    @DisplayName("시작 위치, 이동 위치가 주어졌을 때 움직여진다.(이동 가능한 경우)")
+    public void isMovableTest1() {
         // Given
         board.initialize();
 
@@ -130,9 +130,62 @@ class GameTest {
         game.move(new Position(sourcePosition), new Position(targetPosition));
 
         // Then
+        // 올바르게 이동됨
         assertThat(board.findPiece(new Position(sourcePosition)).getColor()).isEqualTo(Piece.Color.NOCOLOR);
         assertThat(board.findPiece(new Position(sourcePosition)).getType()).isEqualTo(Piece.Type.NO_PIECE);
         assertThat(board.findPiece(new Position(targetPosition)).getColor()).isEqualTo(Piece.Color.WHITE);
         assertThat(board.findPiece(new Position(targetPosition)).getType()).isEqualTo(Piece.Type.PAWN);
+    }
+    @Test
+    @DisplayName("시작 위치, 이동 위치가 주어졌을 때 움직여지지 않는다.(판 밖으로 벗어나는 경우)")
+    public void isMovableTest2() {
+        // Given
+        board.initialize();
+
+        // When
+        String sourcePosition = "h2";
+        String targetPosition = "i3";
+        game.move(new Position(sourcePosition), new Position(targetPosition));
+
+        // Then
+        // 이동이 진행되지 않음
+        assertThat(board.findPiece(new Position(sourcePosition)).getColor()).isEqualTo(Piece.Color.WHITE);
+        assertThat(board.findPiece(new Position(sourcePosition)).getType()).isEqualTo(Piece.Type.PAWN);
+    }
+    @Test
+    @DisplayName("시작 위치, 이동 위치가 주어졌을 때 움직여지지 않는다.(이동하려는 곳에 같은 편의 기물이 있는 경우)")
+    public void isMovableTest3() {
+        // Given
+        board.initialize();
+
+        // When
+        String sourcePosition = "e1";
+        String targetPosition = "e2";
+        game.move(new Position(sourcePosition), new Position(targetPosition));
+
+        // Then
+        // 이동이 진행되지 않음
+        assertThat(board.findPiece(new Position(sourcePosition)).getColor()).isEqualTo(Piece.Color.WHITE);
+        assertThat(board.findPiece(new Position(sourcePosition)).getType()).isEqualTo(Piece.Type.KING);
+        assertThat(board.findPiece(new Position(targetPosition)).getColor()).isEqualTo(Piece.Color.WHITE);
+        assertThat(board.findPiece(new Position(targetPosition)).getType()).isEqualTo(Piece.Type.PAWN);
+    }
+    @Test
+    @DisplayName("시작 위치, 이동 위치가 주어졌을 때 움직여지지 않는다.(이동할 수 없는 움직임인 경우)")
+    public void isMovableTest4() {
+        // Given
+        board.initialize();
+
+        // When
+        String sourcePosition = "e1";
+        String targetPosition = "e4";
+        game.move(new Position(sourcePosition), new Position(targetPosition));
+
+        // Then
+        // 올바르게 이동되는 경우
+        assertThat(board.findPiece(new Position(sourcePosition)).getColor()).isEqualTo(Piece.Color.WHITE);
+        assertThat(board.findPiece(new Position(sourcePosition)).getType()).isEqualTo(Piece.Type.KING);
+        assertThat(board.findPiece(new Position(targetPosition)).getColor()).isEqualTo(Piece.Color.NOCOLOR);
+        assertThat(board.findPiece(new Position(targetPosition)).getType()).isEqualTo(Piece.Type.NO_PIECE);
     }
 }

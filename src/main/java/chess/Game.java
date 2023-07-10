@@ -37,7 +37,7 @@ public class Game {
         }
 
         // 이동하려는 위치에 같은 편의 기물이 있는지 확인
-        if(pieceList.get(targetPosition.getListIdx()).getType() == pieceList.get(sourcePosition.getListIdx()).getType()) {
+        if(pieceList.get(targetPosition.getListIdx()).getColor() == pieceList.get(sourcePosition.getListIdx()).getColor()) {
             return false;
         }
 

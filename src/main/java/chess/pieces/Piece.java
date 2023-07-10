@@ -220,14 +220,16 @@ public class Piece {
             switch (this.type) {
                 // 정해진 칸으로만 이동 가능한 경우
                 case KING: case KNIGHT: case PAWN:
-                    if(direction.getXDegree() == xDegreeFlat && direction.getYDegree() == yDegreeFlat) {
+                    if(direction.getXDegree() == xDegree && direction.getYDegree() == yDegree) {
                         return true;
                     }
+                    break;
                 // 칸수 제한 없이 이동 가능한 경우
                 case ROOK: case BISHOP: case QUEEN:
                     if(direction.getXDegree() == xDegreeFlat && direction.getYDegree() == yDegreeFlat) {
                         return true;
                     }
+                    break;
                 default:
             }
         }
