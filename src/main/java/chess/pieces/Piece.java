@@ -103,12 +103,12 @@ public class Piece {
     private final Type type;
     private final List<Direction> directionList;
 
-    private Piece(Color color, Type type){
+    protected Piece(Color color, Type type){
         this.color = color;
         this.type = type;
-        this.directionList = getDirectionList(color, type);
+        this.directionList = setDirectionList(color, type);
     }
-    private List<Direction> getDirectionList(Color color, Type type) {
+    private List<Direction> setDirectionList(Color color, Type type) {
         if(type == Type.KING) {
             return Direction.everyDirection();
         }
@@ -136,51 +136,23 @@ public class Piece {
         return new ArrayList<>();
     }
 
+    public static Pawn createWhitePawn() {return new Pawn(Color.WHITE);}
+    public static Pawn createBlackPawn() {return new Pawn(Color.BLACK);}
+    public static Rook createWhiteRook() {return new Rook(Color.WHITE);}
+    public static Rook createBlackRook() {return new Rook(Color.BLACK);}
+    public static Knight createWhiteKnight() {return new Knight(Color.WHITE);}
+    public static Knight createBlackKnight() {return new Knight(Color.BLACK);}
+    public static Bishop createWhiteBishop() {return new Bishop(Color.WHITE);}
+    public static Bishop createBlackBishop() {return new Bishop(Color.BLACK);}
+    public static Queen createWhiteQueen() {return new Queen(Color.WHITE);}
+    public static Queen createBlackQueen() {return new Queen(Color.BLACK);}
+    public static King createWhiteKing() {return new King(Color.WHITE);}
+    public static King createBlackKing() {return new King(Color.BLACK);}
     public static Piece createBlank() {
         return new Piece(Color.NOCOLOR, Type.NO_PIECE);
     }
-    private static Piece createWhite(Type type) {
-        return new Piece(Color.WHITE, type);
-    }
-    private static Piece createBlack(Type type) {
-        return new Piece(Color.BLACK, type);
-    }
-    public static Piece createWhitePawn() {
-        return createWhite(Type.PAWN);
-    }
-    public static Piece createBlackPawn() {
-        return createBlack(Type.PAWN);
-    }
-    public static Piece createWhiteKnight() {
-        return createWhite(Type.KNIGHT);
-    }
-    public static Piece createBlackKnight() {
-        return createBlack(Type.KNIGHT);
-    }
-    public static Piece createWhiteRook() {
-        return createWhite(Type.ROOK);
-    }
-    public static Piece createBlackRook() {
-        return createBlack(Type.ROOK);
-    }
-    public static Piece createWhiteBishop() {
-        return createWhite(Type.BISHOP);
-    }
-    public static Piece createBlackBishop() {
-        return createBlack(Type.BISHOP);
-    }
-    public static Piece createWhiteQueen() {
-        return createWhite(Type.QUEEN);
-    }
-    public static Piece createBlackQueen() {
-        return createBlack(Type.QUEEN);
-    }
-    public static Piece createWhiteKing() {
-        return createWhite(Type.KING);
-    }
-    public static Piece createBlackKing() {
-        return createBlack(Type.KING);
-    }
+
+
 
     public Color getColor() {
         return this.color;
