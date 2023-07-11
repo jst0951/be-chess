@@ -148,21 +148,13 @@ public class Piece {
     public static Queen createBlackQueen() {return new Queen(Color.BLACK);}
     public static King createWhiteKing() {return new King(Color.WHITE);}
     public static King createBlackKing() {return new King(Color.BLACK);}
-    public static Piece createBlank() {
-        return new Piece(Color.NOCOLOR, Type.NO_PIECE);
-    }
+    public static Piece createBlank() {return new Piece(Color.NOCOLOR, Type.NO_PIECE);}
 
 
 
-    public Color getColor() {
-        return this.color;
-    }
-    public Type getType() {
-        return this.type;
-    }
-    public List<Direction> getDirectionList() {
-        return this.directionList;
-    }
+    public Color getColor() {return this.color;}
+    public Type getType() {return this.type;}
+    public List<Direction> getDirectionList() {return this.directionList;}
 
     public char getRepresentation() {
         if(this.color.equals(Color.WHITE)) {
@@ -174,15 +166,9 @@ public class Piece {
     }
 
     // extra features
-    public boolean isBlack() {
-        return this.color.equals(Color.BLACK);
-    }
-    public boolean isWhite() {
-        return this.color.equals(Color.WHITE);
-    }
-    public boolean isEmpty() {
-        return this.color.equals(Color.NOCOLOR);
-    }
+    public boolean isBlack() {return this.color.equals(Color.BLACK);}
+    public boolean isWhite() {return this.color.equals(Color.WHITE);}
+    public boolean isEmpty() {return this.color.equals(Color.NOCOLOR);}
 
     public boolean isDirectionAvailable(int xDegree, int yDegree) {
         int xDegreeFlat = flatten(xDegree);
