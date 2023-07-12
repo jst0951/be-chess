@@ -1,12 +1,13 @@
 package chess.pieces;
 
 import chess.Board;
+import chess.Position;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Piece {
+public abstract class Piece {
     public enum Color {
         WHITE, BLACK, NOCOLOR;
     }
@@ -101,40 +102,13 @@ public class Piece {
 
     private final Color color;
     private final Type type;
-    private final List<Direction> directionList;
+    protected List<Direction> directionList;
 
     protected Piece(Color color, Type type){
         this.color = color;
         this.type = type;
-        this.directionList = setDirectionList(color, type);
     }
-    private List<Direction> setDirectionList(Color color, Type type) {
-        if(type == Type.KING) {
-            return Direction.everyDirection();
-        }
-        if(type == Type.ROOK) {
-            return Direction.linearDirection();
-        }
-        if(type == Type.BISHOP) {
-            return Direction.diagonalDirection();
-        }
-        if(type == Type.QUEEN) {
-            return Direction.everyDirection();
-        }
-        if(type == Type.KNIGHT) {
-            return Direction.knightDirection();
-        }
-        if(type == Type.PAWN) {
-            if(color == Color.WHITE) {
-                return Direction.whitePawnDirection();
-            }
-            else{
-                return Direction.blackPawnDirection();
-            }
-        }
-
-        return new ArrayList<>();
-    }
+    protected abstract void setDirectionList();
 
     public static Pawn createWhitePawn() {return new Pawn(Color.WHITE);}
     public static Pawn createBlackPawn() {return new Pawn(Color.BLACK);}
@@ -148,14 +122,10 @@ public class Piece {
     public static Queen createBlackQueen() {return new Queen(Color.BLACK);}
     public static King createWhiteKing() {return new King(Color.WHITE);}
     public static King createBlackKing() {return new King(Color.BLACK);}
-    public static Piece createBlank() {return new Piece(Color.NOCOLOR, Type.NO_PIECE);}
-
-
+    public static Blank createBlank() {return new Blank();}
 
     public Color getColor() {return this.color;}
     public Type getType() {return this.type;}
-    public List<Direction> getDirectionList() {return this.directionList;}
-
     public char getRepresentation() {
         if(this.color.equals(Color.WHITE)) {
             return this.type.getWhiteRepresentation();
@@ -165,40 +135,34 @@ public class Piece {
         }
     }
 
-    // extra features
     public boolean isBlack() {return this.color.equals(Color.BLACK);}
     public boolean isWhite() {return this.color.equals(Color.WHITE);}
     public boolean isEmpty() {return this.color.equals(Color.NOCOLOR);}
 
-    public boolean isDirectionAvailable(int xDegree, int yDegree) {
-        int xDegreeFlat = flatten(xDegree);
-        int yDegreeFlat = flatten(yDegree);
+    public abstract boolean verifyMovePosition(Position source, Position target);
+    public boolean isDirectionAvailableOneSquare(Position source, Position target) {
+        int xDegree = target.getXPos() - source.getXPos();
+        int yDegree = target.getYPos() - source.getYPos();
 
         for(Direction direction: this.directionList) {
-            switch (this.type) {
-                // 정해진 칸으로만 이동 가능한 경우
-                case KING: case KNIGHT: case PAWN:
-                    if(direction.getXDegree() == xDegree && direction.getYDegree() == yDegree) {
-                        return true;
-                    }
-                    break;
-                // 칸수 제한 없이 이동 가능한 경우
-                case ROOK: case BISHOP: case QUEEN:
-                    if(direction.getXDegree() == xDegreeFlat && direction.getYDegree() == yDegreeFlat) {
-                        return true;
-                    }
-                    break;
-                default:
+            if(direction.getXDegree() == xDegree && direction.getYDegree() == yDegree) {
+                return true;
             }
         }
 
         return false;
     }
-    private int flatten(int degree) {
-        if(degree != 0) {
-            degree /= Math.abs(degree);
+    public boolean isDirectionAvailableMultiSquare(Position source, Position target) {
+        int xDegree = target.getXPos() - source.getXPos();
+        int yDegree = target.getYPos() - source.getYPos();
+
+        for(Direction direction: this.directionList) {
+            if(direction.getXDegree() == Integer.signum(xDegree) && direction.getYDegree() == Integer.signum(yDegree)) {
+                return true;
+            }
         }
-        return degree;
+
+        return false;
     }
 
 }
