@@ -6,8 +6,9 @@ public class Pawn extends Piece {
 
     protected Pawn(Color color) {
         super(color, Type.PAWN);
-        setDirectionList();
     }
+
+    @Override
     protected void setDirectionList() {
         if(this.getColor() == Color.WHITE) {
             this.directionList = Direction.whitePawnDirection();

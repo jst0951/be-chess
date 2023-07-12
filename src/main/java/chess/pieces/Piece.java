@@ -107,6 +107,7 @@ public abstract class Piece {
     protected Piece(Color color, Type type){
         this.color = color;
         this.type = type;
+        setDirectionList();
     }
     protected abstract void setDirectionList();
 
