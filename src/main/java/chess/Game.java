@@ -10,9 +10,10 @@ import java.util.*;
 public class Game {
     public static final double PAWN_SAMEROW_SCORE = 0.5;
     public static final String ERROR_OUT_OF_BOUNDARY = "주어진 좌표가 체스 판의 범위를 벗어납니다.";
+    public static final String ERROR_SAME_POSITION = "원본 좌표와 목표 좌표가 동일합니다.";
+    public static final String ERROR_NOT_MY_TURN = "현재 해당 기물 색의 턴이 아닙니다.";
     public static final String ERROR_SAME_TEAM_EXISTS = "목표 좌표에 아군 기물이 존재합니다.";
     public static final String ERROR_MOVE_UNAVAILABLE = "해당 기물이 할 수 없는 움직임입니다.";
-    public static final String ERROR_SAME_POSITION = "원본 좌표와 목표 좌표가 동일합니다.";
 
     private final Board board;
     private final List<Piece> pieceList;
@@ -46,14 +47,22 @@ public class Game {
             throw new IllegalArgumentException(ERROR_SAME_POSITION);
         }
 
+        // 여기까지 정상 처리시, 좌표 관련 문제는 없음.
+        Piece pieceSource = board.findPiece(source);
+        Piece pieceTarget = board.findPiece(target);
+
+        // 움직이려 하는 기물이 자신의 기물이 맞는지 확인
+        if(pieceSource.getColor() != turn) {
+            throw new IllegalArgumentException(ERROR_NOT_MY_TURN);
+        }
+
         // 이동하려는 좌표에 같은 편의 기물이 있는지 확인
-        if(pieceList.get(target.getListIdx()).getColor() == pieceList.get(source.getListIdx()).getColor()) {
+        if(pieceTarget.getColor() == pieceSource.getColor()) {
             throw new IllegalArgumentException(ERROR_SAME_TEAM_EXISTS);
         }
 
         // 각 기물이 행할 수 있는 움직임인지 판별
-        Piece piece = pieceList.get(source.getListIdx());
-        if(!piece.verifyMovePosition(source, target)) {
+        if(!pieceSource.verifyMovePosition(source, target)) {
             throw new IllegalArgumentException(ERROR_MOVE_UNAVAILABLE);
         }
 
