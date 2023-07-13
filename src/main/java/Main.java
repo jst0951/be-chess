@@ -69,6 +69,9 @@ public class Main {
     private static void logicMove(String inputString, Game game, View view) {
         try {
             String[] tokens = inputString.split(" ");
+            if (tokens.length != 3) {
+                throw new IllegalArgumentException(ERROR_MESSAGE_MOVE);
+            }
             game.move(new Position(tokens[1]), new Position(tokens[2]));
             System.out.println(view.showBoard());
         }
