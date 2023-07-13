@@ -60,7 +60,7 @@ public class Game {
         return true;
     }
 
-    public void changeTurn() {
+    private void changeTurn() {
         turn = (turn == Color.WHITE) ? Color.BLACK : Color.WHITE;
     }
     public Color getTurn() {

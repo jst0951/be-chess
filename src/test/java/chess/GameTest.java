@@ -222,4 +222,19 @@ class GameTest {
         assertThat(board.findPiece(target).getColor()).isEqualTo(Piece.Color.NOCOLOR);
         assertThat(board.findPiece(target).getType()).isEqualTo(Piece.Type.NO_PIECE);
     }
+
+    @Test
+    @DisplayName("움직이고 난 뒤 차례가 바뀌어야 한다.")
+    public void changeTurn() {
+        // Given
+        board.initialize();
+        Position source = new Position("b2");
+        Position target = new Position("b3");
+
+        // When
+        game.move(source, target);
+
+        // Then
+        assertThat(game.getTurn()).isEqualTo(Piece.Color.BLACK);
+    }
 }
