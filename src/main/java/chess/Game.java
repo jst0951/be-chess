@@ -8,7 +8,7 @@ import static chess.Board.COL_CNT;
 import java.util.*;
 
 public class Game {
-    public static final double PAWN_SAMEROW_SCORE = 0.5;
+    public static final double PAWN_SAME_ROW_SCORE = 0.5;
     public static final String ERROR_SAME_POSITION = "원본 좌표와 목표 좌표가 동일합니다.";
     public static final String ERROR_NOT_MY_TURN = "현재 해당 기물 색의 턴이 아닙니다.";
     public static final String ERROR_SAME_TEAM_EXISTS = "목표 좌표에 아군 기물이 존재합니다.";
@@ -83,7 +83,7 @@ public class Game {
         // 점수를 차감한다.
         for(int i = 0; i < COL_CNT; i++) {
             if(pawnCntList[i] > 1) {
-                score -= (pawnCntList[i] * PAWN_SAMEROW_SCORE);
+                score -= (pawnCntList[i] * PAWN_SAME_ROW_SCORE);
             }
         }
 
@@ -118,7 +118,7 @@ public class Game {
             if(pieceList.get(idx).getColor() == color && pieceList.get(idx).getType() == Piece.Type.PAWN) {
                 int xPos = idx % 8;
                 if(pawnCntList[xPos] > 1) {
-                    scoreMap.put(pieceList.get(idx), PAWN_SAMEROW_SCORE);
+                    scoreMap.put(pieceList.get(idx), PAWN_SAME_ROW_SCORE);
                 }
             }
         }
