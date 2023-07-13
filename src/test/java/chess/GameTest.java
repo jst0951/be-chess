@@ -239,4 +239,26 @@ class GameTest {
         // Then
         assertThat(game.getTurn()).isEqualTo(Color.BLACK);
     }
+    @Test
+    @DisplayName("자신의 차례에만 기물을 움직일 수 있다.(백의 차례에 흑이 이동 시도, 실패해야함)")
+    public void notMyTurn() {
+        // Given
+        board.initialize();
+        Position source = new Position("b7");
+        Position target = new Position("b6");
+
+        // When
+        Throwable throwable = catchThrowable(() ->
+                game.move(source, target)
+        );
+
+        // Then
+        // Exception 발생
+        assertThat(throwable).isInstanceOf(IllegalArgumentException.class).hasMessage(ERROR_NOT_MY_TURN);
+        // 이동이 진행되지 않음
+        assertThat(board.findPiece(source).getColor()).isEqualTo(Color.BLACK);
+        assertThat(board.findPiece(source).getType()).isEqualTo(Type.PAWN);
+        assertThat(board.findPiece(target).getColor()).isEqualTo(Color.NOCOLOR);
+        assertThat(board.findPiece(target).getType()).isEqualTo(Type.NO_PIECE);
+    }
 }
