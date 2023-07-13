@@ -21,7 +21,10 @@ public class ViewTest {
     @Test
     @DisplayName("초기화 후 최초에 보드가 올바르게 표시되어야 한다.")
     public void create() throws Exception {
+        // Given
         board.initialize();
+
+        // When, Then
         assertThat(board.pieceCount()).isEqualTo(32);
         String blankRank = appendNewLine("........");
         assertThat(view.showBoard()).isEqualTo(

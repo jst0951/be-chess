@@ -23,52 +23,88 @@ class BoardTest {
     @Test
     @DisplayName("isBlack() : 검은 말은 true, 흰색 말은 false를 반환해야 한다.")
     public void validateIsBlack() throws Exception {
+        // Given
         Piece blackPiece = Piece.createBlackPawn();
         Piece whitePiece = Piece.createWhitePawn();
-        assertThat(blackPiece.isBlack()).isEqualTo(true);
-        assertThat(whitePiece.isBlack()).isEqualTo(false);
+
+        // When
+        boolean isBlackPieceBlack = blackPiece.isBlack();
+        boolean isWhitePieceBlack = whitePiece.isBlack();
+
+        // Then
+        assertThat(isBlackPieceBlack).isEqualTo(true);
+        assertThat(isWhitePieceBlack).isEqualTo(false);
     }
 
     @Test
     @DisplayName("isWhite() : 검은 말은 false, 흰색 말은 true를 반환해야 한다.")
     public void validateIsWhite() throws Exception {
+        // Given
         Piece blackPiece = Piece.createBlackPawn();
         Piece whitePiece = Piece.createWhitePawn();
-        assertThat(blackPiece.isWhite()).isEqualTo(false);
-        assertThat(whitePiece.isWhite()).isEqualTo(true);
+
+        // When
+        boolean isBlackPieceWhite = blackPiece.isWhite();
+        boolean isWhitePieceWhite = whitePiece.isWhite();
+
+        // Then
+        assertThat(isBlackPieceWhite).isEqualTo(false);
+        assertThat(isWhitePieceWhite).isEqualTo(true);
     }
 
     @Test
     @DisplayName("모든 기물의 개수를 출력해야 한다.")
     public void pieceCount() {
+        // Given
         board.initialize();
-        assertThat(board.pieceCount()).isEqualTo(32);
+
+        // When
+        int pieceCount = board.pieceCount();
+
+        // Then
+        assertThat(pieceCount).isEqualTo(32);
     }
 
     @Test
     @DisplayName("특정 색과 종류에 해당하는 기물의 개수를 출력해야 한다.")
     public void specificPieceCount() {
+        // Given
         board.initialize();
-        assertThat(board.pieceCount(Color.BLACK, Type.PAWN)).isEqualTo(8);
+
+        // When
+        int pieceCount = board.pieceCount(Color.BLACK, Type.PAWN);
+
+        // Then
+        assertThat(pieceCount).isEqualTo(8);
     }
 
     @Test
     @DisplayName("주어진 위치의 기물이 조회된다.")
     public void findPiece() {
+        // Given
         board.initialize();
-        assertThat(board.findPiece(new Position("a8")).getColor()).isEqualTo(Color.BLACK);
-        assertThat(board.findPiece(new Position("a8")).getType()).isEqualTo(Type.ROOK);
+        String positionString = "a8";
+
+        // When
+        Piece piece = board.findPiece(new Position(positionString));
+
+        // Then
+        assertThat(piece.getColor()).isEqualTo(Color.BLACK);
+        assertThat(piece.getType()).isEqualTo(Type.ROOK);
     }
 
     @Test
     @DisplayName("임의의 기물을 체스판 위에 추가한다.(원래 있던 것은 무시, 추가만)")
     public void putPiece() {
+        // Given
         board.initializeEmpty();
-
-        String position = "b5";
         Piece piece = Piece.createBlackRook();
+        String position = "b5";
+
+        // When
         board.putPiece(new Position(position), piece);
 
+        // Then
         assertThat(board.findPiece(new Position(position))).isEqualTo(piece);
     }
 

@@ -25,26 +25,30 @@ class GameTest {
     @Test
     @DisplayName("각자의 점수를 계산해야한다.(폰이 같은 세로줄에 없는 경우)")
     public void calculatePoint() throws Exception {
+        // Given
         board.initializeEmpty();
 
+        // When
         addPiece("b6", Piece.createBlackPawn());
         addPiece("e6", Piece.createBlackQueen());
         addPiece("b8", Piece.createBlackKing());
         addPiece("c8", Piece.createBlackRook());
-
         addPiece("f2", Piece.createWhitePawn());
         addPiece("g2", Piece.createWhitePawn());
         addPiece("e1", Piece.createWhiteRook());
         addPiece("f1", Piece.createWhiteKing());
 
+        // Then
         assertThat(game.calculatePoint(Color.BLACK)).isEqualTo(15.0, withPrecision(0.01));
         assertThat(game.calculatePoint(Color.WHITE)).isEqualTo(7.0, withPrecision(0.01));
     }
     @Test
     @DisplayName("각자의 점수를 계산해야한다.(폰이 같은 세로줄에 있는 경우)")
     public void calculatePointPawnProb() throws Exception {
+        // Given
         board.initializeEmpty();
 
+        // When
         addPiece("b8", Piece.createBlackKing());
         addPiece("c8", Piece.createBlackRook());
         addPiece("a7", Piece.createBlackPawn());
@@ -52,7 +56,6 @@ class GameTest {
         addPiece("d7", Piece.createBlackBishop());
         addPiece("b6", Piece.createBlackPawn());
         addPiece("e6", Piece.createBlackQueen());
-
         addPiece("f4", Piece.createWhiteKnight());
         addPiece("g4", Piece.createWhiteQueen());
         addPiece("f3", Piece.createWhitePawn());
@@ -62,6 +65,7 @@ class GameTest {
         addPiece("e1", Piece.createWhiteRook());
         addPiece("f1", Piece.createWhiteKing());
 
+        // Then
         assertThat(game.calculatePoint(Color.BLACK)).isEqualTo(20, withPrecision(0.01));
         assertThat(game.calculatePoint(Color.WHITE)).isEqualTo(19.5, withPrecision(0.01));
     }
@@ -72,8 +76,10 @@ class GameTest {
     @Test
     @DisplayName("기물의 점수가 오름차순으로 정렬되어야 한다.")
     public void sortByScoreAsc() throws Exception {
+        // Given
         board.initializeEmpty();
 
+        // When
         addPiece("b8", Piece.createBlackKing());
         addPiece("c8", Piece.createBlackRook());
         addPiece("a7", Piece.createBlackPawn());
@@ -81,7 +87,6 @@ class GameTest {
         addPiece("d7", Piece.createBlackBishop());
         addPiece("b6", Piece.createBlackPawn());
         addPiece("e6", Piece.createBlackQueen());
-
         addPiece("f4", Piece.createWhiteKnight());
         addPiece("g4", Piece.createWhiteQueen());
         addPiece("f3", Piece.createWhitePawn());
@@ -91,14 +96,17 @@ class GameTest {
         addPiece("e1", Piece.createWhiteRook());
         addPiece("f1", Piece.createWhiteKing());
 
+        // Then
         List<Piece> sortedPieceList = game.pieceListSortedByScoreAsc(Color.WHITE);
     }
 
     @Test
     @DisplayName("기물의 점수가 내림차순으로 정렬되어야 한다.")
     public void sortByScoreDesc() throws Exception{
+        // Given
         board.initializeEmpty();
 
+        // When
         addPiece("b8", Piece.createBlackKing());
         addPiece("c8", Piece.createBlackRook());
         addPiece("a7", Piece.createBlackPawn());
@@ -106,7 +114,6 @@ class GameTest {
         addPiece("d7", Piece.createBlackBishop());
         addPiece("b6", Piece.createBlackPawn());
         addPiece("e6", Piece.createBlackQueen());
-
         addPiece("f4", Piece.createWhiteKnight());
         addPiece("g4", Piece.createWhiteQueen());
         addPiece("f3", Piece.createWhitePawn());
@@ -116,6 +123,7 @@ class GameTest {
         addPiece("e1", Piece.createWhiteRook());
         addPiece("f1", Piece.createWhiteKing());
 
+        // Then
         List<Piece> sortedPieceList = game.pieceListSortedByScoreDesc(Color.WHITE);
     }
 
