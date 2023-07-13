@@ -70,8 +70,8 @@ public class Game {
         int yDegree = target.getYPos() - source.getYPos();
         int multiplier = Math.max(Math.abs(xDegree), Math.abs(yDegree));
         for(int mul = multiplier; mul > 0; mul--) {
-            int examX = source.getXPos() + xDegree / mul;
-            int examY = source.getYPos() + yDegree / mul;
+            int examX = source.getXPos() + Integer.signum(xDegree) * mul;
+            int examY = source.getYPos() + Integer.signum(yDegree) * mul;
             if(examX >= 0 && examY >= 0) {
                 Position examPosition = Position.xyToPosition(examX, examY);
                 if(board.findPiece(examPosition).getType() != Type.NO_PIECE) {
