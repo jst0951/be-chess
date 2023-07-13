@@ -11,6 +11,7 @@ public class Game {
     public static final String ERROR_OUT_OF_BOUNDARY = "주어진 좌표가 체스 판의 범위를 벗어납니다.";
     public static final String ERROR_SAME_TEAM_EXISTS = "목표 좌표에 아군 기물이 존재합니다.";
     public static final String ERROR_MOVE_UNAVAILABLE = "해당 기물이 할 수 없는 움직임입니다.";
+    public static final String ERROR_SAME_POSITION = "원본 좌표와 목표 좌표가 동일합니다.";
 
     private final Board board;
     private final List<Piece> pieceList;
@@ -25,19 +26,24 @@ public class Game {
             board.movePiece(source, target);
         }
     }
-    public boolean isMovable(Position source, Position target) throws RuntimeException {
-        // 원본 좌표가 벗어나지 않는지 계산
+    private boolean isMovable(Position source, Position target) throws RuntimeException {
+        // 원본 좌표가 체스판을 벗어나지 않는지 확인
         if(source.getXPos() < 0 || source.getXPos() >= COL_CNT ||
                 source.getYPos() < 0 || source.getYPos() >= COL_CNT) {
             throw new IllegalArgumentException(ERROR_OUT_OF_BOUNDARY);
         }
-        // 목표 좌표가 벗어나지 않는지 계산
+        // 목표 좌표가 체스판을 벗어나지 않는지 계산
         if(target.getXPos() < 0 || target.getXPos() >= COL_CNT ||
             target.getYPos() < 0 || target.getYPos() >= ROW_CNT) {
             throw new IllegalArgumentException(ERROR_OUT_OF_BOUNDARY);
         }
 
-        // 이동하려는 위치에 같은 편의 기물이 있는지 확인
+        // 원본 좌표와 목표 좌표가 같은지 확인
+        if(source.getListIdx() == target.getListIdx()) {
+            throw new IllegalArgumentException(ERROR_SAME_POSITION);
+        }
+
+        // 이동하려는 좌표에 같은 편의 기물이 있는지 확인
         if(pieceList.get(target.getListIdx()).getColor() == pieceList.get(source.getListIdx()).getColor()) {
             throw new IllegalArgumentException(ERROR_SAME_TEAM_EXISTS);
         }

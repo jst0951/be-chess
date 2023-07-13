@@ -118,14 +118,14 @@ class GameTest {
     }
 
     @Test
-    @DisplayName("시작 위치, 이동 위치가 주어졌을 때 움직여진다.(이동 가능한 경우)")
+    @DisplayName("원본 좌표, 목표 좌표가 주어졌을 때 움직여진다.(이동 가능한 경우)")
     public void isMovableTestOK() {
         // Given
         board.initialize();
-
-        // When
         String sourcePosition = "b2";
         String targetPosition = "b3";
+
+        // When
         game.move(new Position(sourcePosition), new Position(targetPosition));
 
         // Then
@@ -136,14 +136,14 @@ class GameTest {
         assertThat(board.findPiece(new Position(targetPosition)).getType()).isEqualTo(Piece.Type.PAWN);
     }
     @Test
-    @DisplayName("시작 위치, 이동 위치가 주어졌을 때 움직여지지 않는다.(판 밖으로 벗어나는 경우)")
+    @DisplayName("원본 좌표, 목포 좌표가 주어졌을 때 움직여지지 않는다.(판 밖으로 벗어나는 경우)")
     public void isMovableTestOutOfBoundary() {
         // Given
         board.initialize();
-
-        // When
         String sourcePosition = "h2";
         String targetPosition = "i3";
+
+        // When
         Throwable throwable = catchThrowable(() ->
                 game.move(new Position(sourcePosition), new Position(targetPosition))
         );
@@ -157,14 +157,36 @@ class GameTest {
     }
 
     @Test
-    @DisplayName("시작 위치, 이동 위치가 주어졌을 때 움직여지지 않는다.(이동하려는 곳에 같은 편의 기물이 있는 경우)")
+    @DisplayName("원본 좌표, 목표 좌표가 주어졌을 때 움직여지지 않는다.(원본 좌표와 목표 좌표가 같은 경우)")
+    public void isMovableSamePosition() {
+        // Given
+        board.initialize();
+        String sourcePosition = "b2";
+        String targetPosition = "b2";
+
+        // When
+        Throwable throwable = catchThrowable(() ->
+                game.move(new Position(sourcePosition), new Position(targetPosition))
+        );
+
+        // Then
+        // Exception 발생
+        assertThat(throwable).isInstanceOf(IllegalArgumentException.class).hasMessage(ERROR_SAME_POSITION);
+        // 이동이 진행되지 않음
+        assertThat(board.findPiece(new Position(sourcePosition)).getColor()).isEqualTo(Piece.Color.WHITE);
+        assertThat(board.findPiece(new Position(sourcePosition)).getType()).isEqualTo(Piece.Type.PAWN);
+        assertThat(board.findPiece(new Position(targetPosition)).getColor()).isEqualTo(Piece.Color.WHITE);
+        assertThat(board.findPiece(new Position(targetPosition)).getType()).isEqualTo(Piece.Type.PAWN);
+    }
+    @Test
+    @DisplayName("원본 좌표, 목표 좌표가 주어졌을 때 움직여지지 않는다.(이동하려는 곳에 같은 편의 기물이 있는 경우)")
     public void isMovableTestSameTeamExists() {
         // Given
         board.initialize();
-
-        // When
         String sourcePosition = "e1";
         String targetPosition = "e2";
+
+        // When
         Throwable throwable = catchThrowable(() ->
                 game.move(new Position(sourcePosition), new Position(targetPosition))
         );
@@ -183,10 +205,10 @@ class GameTest {
     public void isMovableTestMoveUnavailable() {
         // Given
         board.initialize();
-
-        // When
         String sourcePosition = "e1";
         String targetPosition = "e4";
+
+        // When
         Throwable throwable = catchThrowable(() ->
                 game.move(new Position(sourcePosition), new Position(targetPosition))
         );
