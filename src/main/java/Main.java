@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class Main {
     private static final String ERROR_MESSAGE_START = "올바르지 않은 입력입니다. 게임을 시작하려면 start를 눌러주세요.";
     private static final String INFO_GAME_START = "게임이 시작되었습니다. 말을 움직여주세요.";
+    private static final String ERROR_MESSAGE_RETYPE = "다시 입력해주세요.";
     private static final String ERROR_MESSAGE_MOVE = "올바르지 않은 입력입니다. 'move b2 b3'과 같은 형태를 입력해주세요.";
     private static final String ERROR_MESSAGE_END = "게임을 종료하시려면 end를 눌러주세요.";
     private static final String ERROR_MESSAGE_GAME = appendNewLine(ERROR_MESSAGE_MOVE) + ERROR_MESSAGE_END;
@@ -38,9 +39,15 @@ public class Main {
                 System.out.println(INFO_GAME_END);
                 break;
             }
-            else if(inputString.startsWith("move")) {
+            if(inputString.startsWith("move")) {
                 String[] tokens = inputString.split(" ");
-                game.move(new Position(tokens[1]), new Position(tokens[2]));
+                try {
+                    game.move(new Position(tokens[1]), new Position(tokens[2]));
+                }
+                catch(RuntimeException e) {
+                    System.out.println(e.getMessage());
+                    System.out.println(ERROR_MESSAGE_RETYPE);
+                }
                 System.out.println(view.showBoard());
             }
             else {
@@ -58,9 +65,7 @@ public class Main {
                 System.out.println(INFO_GAME_START);
                 break;
             }
-            else {
-                System.out.println(ERROR_MESSAGE_START);
-            }
+            System.out.println(ERROR_MESSAGE_START);
         }
     }
 }

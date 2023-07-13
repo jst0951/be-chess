@@ -8,6 +8,9 @@ import java.util.*;
 
 public class Game {
     public static final double PAWN_SAMEROW_SCORE = 0.5;
+    public static final String ERROR_OUT_OF_BOUNDARY = "주어진 좌표가 체스 판의 범위를 벗어납니다.";
+    public static final String ERROR_SAME_TEAM_EXISTS = "목표 좌표에 아군 기물이 존재합니다.";
+    public static final String ERROR_MOVE_UNAVAILABLE = "해당 기물이 할 수 없는 움직임입니다.";
 
     private final Board board;
     private final List<Piece> pieceList;
@@ -17,31 +20,32 @@ public class Game {
         this.pieceList = board.getPieceList();
     }
 
-    public void move(Position source, Position target) {
+    public void move(Position source, Position target) throws RuntimeException {
         if (isMovable(source, target)) {
             board.movePiece(source, target);
         }
     }
-
-    public boolean isMovable(Position source, Position target) {
+    public boolean isMovable(Position source, Position target) throws RuntimeException {
         // 원본 좌표가 벗어나지 않는지 계산
-        if(source.getXPos() < 0 || source.getYPos() < 0) {
-            return false;
+        if(source.getXPos() < 0 || source.getXPos() >= COL_CNT ||
+                source.getYPos() < 0 || source.getYPos() >= COL_CNT) {
+            throw new IllegalArgumentException(ERROR_OUT_OF_BOUNDARY);
         }
         // 목표 좌표가 벗어나지 않는지 계산
-        if(target.getXPos() >= COL_CNT || target.getYPos() >= ROW_CNT) {
-            return false;
+        if(target.getXPos() < 0 || target.getXPos() >= COL_CNT ||
+            target.getYPos() < 0 || target.getYPos() >= ROW_CNT) {
+            throw new IllegalArgumentException(ERROR_OUT_OF_BOUNDARY);
         }
 
         // 이동하려는 위치에 같은 편의 기물이 있는지 확인
         if(pieceList.get(target.getListIdx()).getColor() == pieceList.get(source.getListIdx()).getColor()) {
-            return false;
+            throw new IllegalArgumentException(ERROR_SAME_TEAM_EXISTS);
         }
 
         // 각 기물이 행할 수 있는 움직임인지 판별
         Piece piece = pieceList.get(source.getListIdx());
         if(!piece.verifyMovePosition(source, target)) {
-            return false;
+            throw new IllegalArgumentException(ERROR_MOVE_UNAVAILABLE);
         }
 
         return true;
