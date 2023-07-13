@@ -9,7 +9,18 @@ import java.util.List;
 
 public abstract class Piece {
     public enum Color {
-        WHITE, BLACK, NOCOLOR;
+        WHITE("백색"),
+        BLACK("흑색"),
+        NOCOLOR("빈칸");
+
+        private final String colorName;
+        Color(String colorName) {
+            this.colorName = colorName;
+        }
+
+        public String getColorName() {
+            return this.colorName;
+        }
     }
     public enum Type {
         PAWN('p', 1.0),
