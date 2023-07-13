@@ -11,7 +11,6 @@ public class Main {
     private static final String COMMAND_GAME_START = "start";
     private static final String COMMAND_GAME_END = "end";
     private static final String COMMAND_MOVE = "move";
-    private static final String REGEX_COMMAND_MOVE = "move [a-h][1-8] [a-h][1-8]";
     private static final String INFO_START_PENDING = "체스 게임에 오신 것을 환영합니다. 게임을 시작하려면 start를 입력해주세요.";
     private static final String ERROR_MESSAGE_START = "올바르지 않은 입력입니다. 게임을 시작하려면 start를 입력해주세요.";
     private static final String INFO_GAME_START = "게임이 시작되었습니다. 'move b2 b3'와 같이 입력하여 말을 움직여주세요.";
@@ -68,16 +67,6 @@ public class Main {
     }
 
     private static void logicMove(String inputString, Game game, View view) {
-        // 입력 검증
-        try {
-            if(!inputString.matches(REGEX_COMMAND_MOVE)) {
-                throw new IllegalArgumentException(ERROR_MESSAGE_MOVE);
-            }
-        } catch (IllegalArgumentException e) {
-            printExceptionMessage(e);
-            return;
-        }
-        // 이동 진행
         try {
             String[] tokens = inputString.split(" ");
             game.move(new Position(tokens[1]), new Position(tokens[2]));
