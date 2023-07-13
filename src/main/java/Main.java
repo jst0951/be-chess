@@ -11,6 +11,7 @@ public class Main {
     private static final String COMMAND_GAME_START = "start";
     private static final String COMMAND_GAME_END = "end";
     private static final String COMMAND_MOVE = "move";
+    private static final String REGEX_COMMAND_MOVE = "move [a-h][1-8] [a-h][1-8]";
     private static final String ERROR_MESSAGE_START = "올바르지 않은 입력입니다. 게임을 시작하려면 start를 눌러주세요.";
     private static final String INFO_GAME_START = "게임이 시작되었습니다. 말을 움직여주세요.";
     private static final String ERROR_MESSAGE_RETYPE = "다시 입력해주세요.";
@@ -23,13 +24,7 @@ public class Main {
         // 게임 시작 처리
         waitUntilInput();
         // 게임 진행
-        try{
-            playGame();
-        }
-        catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            System.out.println(ERROR_MESSAGE_RETYPE);
-        }
+        playGame();
     }
 
     private static void waitUntilInput() {
@@ -62,10 +57,22 @@ public class Main {
                 break;
             }
             if(inputString.startsWith(COMMAND_MOVE)) {
-                String[] tokens = inputString.split(" ");
-                game.move(new Position(tokens[1]), new Position(tokens[2]));
-                System.out.println(view.showBoard());
+                // 입력 검증
+                if(!inputString.matches(REGEX_COMMAND_MOVE)) {
+                    System.out.println(ERROR_MESSAGE_MOVE);
+                }
+                // 이동 진행
+                try {
+                    String[] tokens = inputString.split(" ");
+                    game.move(new Position(tokens[1]), new Position(tokens[2]));
+                    System.out.println(view.showBoard());
+                }
+                catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                    System.out.println(ERROR_MESSAGE_RETYPE);
+                }
             }
+
             else {
                 System.out.println(ERROR_MESSAGE_GAME);
             }
