@@ -16,7 +16,6 @@ public class Position {
 
         this.listIdx = yPos * 8 + xPos;
     }
-
     private void verifyPosition(String position) throws IllegalArgumentException {
         char x = position.charAt(0);
         char y = position.charAt(1);
@@ -35,5 +34,15 @@ public class Position {
 
     public int getListIdx() {
         return this.listIdx;
+    }
+
+    public static Position xyToPosition(int xPos, int yPos) {
+        int x = xPos + 'a';
+        char xChar = (char) x;
+        int y = '8' - yPos;
+        char yChar = (char) y;
+
+        String positionString = String.valueOf(xChar) + String.valueOf(yChar);
+        return new Position(positionString);
     }
 }

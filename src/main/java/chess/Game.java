@@ -1,6 +1,7 @@
 package chess;
 
 import chess.pieces.Piece;
+import static chess.pieces.Piece.Type;
 import static chess.pieces.Piece.Color;
 import static chess.Board.ROW_CNT;
 import static chess.Board.COL_CNT;
@@ -14,6 +15,7 @@ public class Game {
     public static final String ERROR_NOT_MY_TURN = "현재 해당 기물 색의 턴이 아닙니다.";
     public static final String ERROR_SAME_TEAM_EXISTS = "목표 좌표에 아군 기물이 존재합니다.";
     public static final String ERROR_MOVE_UNAVAILABLE = "해당 기물이 할 수 없는 움직임입니다.";
+    public static final String ERROR_PIECE_EXISTS_ON_ROUTE = "가는 길에 기물이 존재합니다.";
 
     private final Board board;
     private final List<Piece> pieceList;
@@ -55,7 +57,30 @@ public class Game {
             throw new IllegalArgumentException(ERROR_MOVE_UNAVAILABLE);
         }
 
+        // 가려고 하는 루트에 기물이 있다면 뛰어넘을 수 없습니다.
+        if (isPieceExistsOnRoute(source, target)) {
+            throw new IllegalArgumentException(ERROR_PIECE_EXISTS_ON_ROUTE);
+        }
+
         return true;
+    }
+    public boolean isPieceExistsOnRoute(Position source, Position target) {
+        Piece pieceSource = board.findPiece(source);
+        int xDegree = target.getXPos() - source.getXPos();
+        int yDegree = target.getYPos() - source.getYPos();
+        int multiplier = Math.max(Math.abs(xDegree), Math.abs(yDegree));
+        for(int mul = multiplier; mul > 0; mul--) {
+            int examX = source.getXPos() + xDegree / mul;
+            int examY = source.getYPos() + yDegree / mul;
+            if(examX >= 0 && examY >= 0) {
+                Position examPosition = Position.xyToPosition(examX, examY);
+                if(board.findPiece(examPosition).getType() != Type.NO_PIECE) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     private void changeTurn() {

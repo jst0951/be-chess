@@ -249,4 +249,27 @@ class GameTest {
         assertThat(board.findPiece(target).getColor()).isEqualTo(Color.NOCOLOR);
         assertThat(board.findPiece(target).getType()).isEqualTo(Type.NO_PIECE);
     }
+
+    @Test
+    @DisplayName("가는 길에 기물이 존재하면 이동할 수 없다.")
+    public void pieceExistsOnRoute() throws Exception {
+        // Given
+        board.initialize();
+        Position source = new Position("a1");
+        Position target = new Position("a3");
+
+        // When
+        Throwable throwable = catchThrowable(() ->
+                game.move(source, target)
+        );
+
+        // Then
+        // Exception 발생
+        assertThat(throwable).isInstanceOf(IllegalArgumentException.class).hasMessage(ERROR_PIECE_EXISTS_ON_ROUTE);
+        // 이동이 진행되지 않음
+        assertThat(board.findPiece(source).getColor()).isEqualTo(Color.WHITE);
+        assertThat(board.findPiece(source).getType()).isEqualTo(Type.ROOK);
+        assertThat(board.findPiece(target).getColor()).isEqualTo(Color.NOCOLOR);
+        assertThat(board.findPiece(target).getType()).isEqualTo(Type.NO_PIECE);
+    }
 }
