@@ -9,7 +9,7 @@ public class Bishop extends Piece {
     }
 
     @Override
-    protected void setDirectionList() {
+    public void setDirectionList() {
         this.directionList = Direction.diagonalDirection();
     }
 
