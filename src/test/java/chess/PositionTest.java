@@ -3,7 +3,9 @@ package chess;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static chess.Position.ERROR_OUT_OF_BOUNDARY;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 
 class PositionTest {
 
@@ -33,5 +35,18 @@ class PositionTest {
 
         // Then
         assertThat(listIdx).isEqualTo(27);
+    }
+
+    @Test
+    @DisplayName("범위를 벗어난 좌표를 받으면 Exception을 발생시켜야 한다.")
+    public void positionOutOfBoundary(){
+        // Given
+        String positonString = "z1";
+
+        // when
+        Throwable throwable = catchThrowable(() -> new Position(positonString));
+
+        // Then
+        assertThat(throwable).isInstanceOf(IllegalArgumentException.class).hasMessage(ERROR_OUT_OF_BOUNDARY);
     }
 }

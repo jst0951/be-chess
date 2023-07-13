@@ -65,13 +65,13 @@ class GameTest {
         assertThat(game.calculatePoint(Color.BLACK)).isEqualTo(20, withPrecision(0.01));
         assertThat(game.calculatePoint(Color.WHITE)).isEqualTo(19.5, withPrecision(0.01));
     }
-    private void addPiece(String position, Piece piece) {
+    private void addPiece(String position, Piece piece) throws Exception {
         board.putPiece(new Position(position), piece);
     }
 
     @Test
     @DisplayName("기물의 점수가 오름차순으로 정렬되어야 한다.")
-    public void sortByScoreAsc() {
+    public void sortByScoreAsc() throws Exception {
         board.initializeEmpty();
 
         addPiece("b8", Piece.createBlackKing());
@@ -96,7 +96,7 @@ class GameTest {
 
     @Test
     @DisplayName("기물의 점수가 내림차순으로 정렬되어야 한다.")
-    public void sortByScoreDesc() {
+    public void sortByScoreDesc() throws Exception{
         board.initializeEmpty();
 
         addPiece("b8", Piece.createBlackKing());
@@ -121,7 +121,7 @@ class GameTest {
 
     @Test
     @DisplayName("원본 좌표, 목표 좌표가 주어졌을 때 움직여진다.(이동 가능한 경우)")
-    public void isMovableTestOK() {
+    public void isMovableTestOK() throws Exception {
         // Given
         board.initialize();
         Position source = new Position("b2");
@@ -137,30 +137,10 @@ class GameTest {
         assertThat(board.findPiece(target).getColor()).isEqualTo(Color.WHITE);
         assertThat(board.findPiece(target).getType()).isEqualTo(Type.PAWN);
     }
-    @Test
-    @DisplayName("원본 좌표, 목포 좌표가 주어졌을 때 움직여지지 않는다.(판 밖으로 벗어나는 경우)")
-    public void isMovableTestOutOfBoundary() {
-        // Given
-        board.initialize();
-        Position source = new Position("h2");
-        Position target = new Position("i3");
-
-        // When
-        Throwable throwable = catchThrowable(() ->
-                game.move(source, target)
-        );
-
-        // Then
-        // Exception 발생
-        assertThat(throwable).isInstanceOf(IllegalArgumentException.class).hasMessage(ERROR_OUT_OF_BOUNDARY);
-        // 이동이 진행되지 않음
-        assertThat(board.findPiece(source).getColor()).isEqualTo(Color.WHITE);
-        assertThat(board.findPiece(source).getType()).isEqualTo(Type.PAWN);
-    }
 
     @Test
     @DisplayName("원본 좌표, 목표 좌표가 주어졌을 때 움직여지지 않는다.(원본 좌표와 목표 좌표가 같은 경우)")
-    public void isMovableSamePosition() {
+    public void isMovableSamePosition() throws Exception {
         // Given
         board.initialize();
         Position source = new Position("b2");
@@ -182,7 +162,7 @@ class GameTest {
     }
     @Test
     @DisplayName("원본 좌표, 목표 좌표가 주어졌을 때 움직여지지 않는다.(이동하려는 곳에 같은 편의 기물이 있는 경우)")
-    public void isMovableTestSameTeamExists() {
+    public void isMovableTestSameTeamExists() throws Exception {
         // Given
         board.initialize();
         Position source = new Position("e1");
@@ -204,7 +184,7 @@ class GameTest {
     }
     @Test
     @DisplayName("시작 위치, 이동 위치가 주어졌을 때 움직여지지 않는다.(이동할 수 없는 움직임인 경우)")
-    public void isMovableTestMoveUnavailable() {
+    public void isMovableTestMoveUnavailable() throws Exception {
         // Given
         board.initialize();
         Position source = new Position("e1");
@@ -227,7 +207,7 @@ class GameTest {
 
     @Test
     @DisplayName("움직이고 난 뒤 차례가 바뀌어야 한다.")
-    public void changeTurn() {
+    public void changeTurn() throws Exception {
         // Given
         board.initialize();
         Position source = new Position("b2");
@@ -241,7 +221,7 @@ class GameTest {
     }
     @Test
     @DisplayName("자신의 차례에만 기물을 움직일 수 있다.(백의 차례에 흑이 이동 시도, 실패해야함)")
-    public void notMyTurn() {
+    public void notMyTurn() throws Exception {
         // Given
         board.initialize();
         Position source = new Position("b7");

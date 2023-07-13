@@ -9,7 +9,6 @@ import java.util.*;
 
 public class Game {
     public static final double PAWN_SAMEROW_SCORE = 0.5;
-    public static final String ERROR_OUT_OF_BOUNDARY = "주어진 좌표가 체스 판의 범위를 벗어납니다.";
     public static final String ERROR_SAME_POSITION = "원본 좌표와 목표 좌표가 동일합니다.";
     public static final String ERROR_NOT_MY_TURN = "현재 해당 기물 색의 턴이 아닙니다.";
     public static final String ERROR_SAME_TEAM_EXISTS = "목표 좌표에 아군 기물이 존재합니다.";
@@ -31,17 +30,6 @@ public class Game {
         }
     }
     private boolean isMovable(Position source, Position target) throws RuntimeException {
-        // 원본 좌표가 체스판을 벗어나지 않는지 확인
-        if(source.getXPos() < 0 || source.getXPos() >= COL_CNT ||
-                source.getYPos() < 0 || source.getYPos() >= COL_CNT) {
-            throw new IllegalArgumentException(ERROR_OUT_OF_BOUNDARY);
-        }
-        // 목표 좌표가 체스판을 벗어나지 않는지 계산
-        if(target.getXPos() < 0 || target.getXPos() >= COL_CNT ||
-            target.getYPos() < 0 || target.getYPos() >= ROW_CNT) {
-            throw new IllegalArgumentException(ERROR_OUT_OF_BOUNDARY);
-        }
-
         // 원본 좌표와 목표 좌표가 같은지 확인
         if(source.getListIdx() == target.getListIdx()) {
             throw new IllegalArgumentException(ERROR_SAME_POSITION);

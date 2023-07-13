@@ -81,11 +81,11 @@ public class Main {
             game.move(new Position(tokens[1]), new Position(tokens[2]));
             System.out.println(view.showBoard());
         }
-        catch (IllegalArgumentException e) {
+        catch (Exception e) {
             printExceptionMessage(e);
         }
     }
-    private static void printExceptionMessage(RuntimeException e) {
+    private static void printExceptionMessage(Exception e) {
         System.out.println(e.getMessage());
         System.out.println(ERROR_MESSAGE_RETYPE);
     }
