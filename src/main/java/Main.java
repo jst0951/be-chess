@@ -8,6 +8,9 @@ import static utils.StringUtils.appendNewLine;
 import java.util.Scanner;
 
 public class Main {
+    private static final String COMMAND_GAME_START = "start";
+    private static final String COMMAND_GAME_END = "end";
+    private static final String COMMAND_MOVE = "move";
     private static final String ERROR_MESSAGE_START = "올바르지 않은 입력입니다. 게임을 시작하려면 start를 눌러주세요.";
     private static final String INFO_GAME_START = "게임이 시작되었습니다. 말을 움직여주세요.";
     private static final String ERROR_MESSAGE_RETYPE = "다시 입력해주세요.";
@@ -35,11 +38,11 @@ public class Main {
 
         while(true) {
             String inputString = in.nextLine();
-            if(inputString.equals("end")) {
+            if(inputString.equals(COMMAND_GAME_END)) {
                 System.out.println(INFO_GAME_END);
                 break;
             }
-            if(inputString.startsWith("move")) {
+            if(inputString.startsWith(COMMAND_MOVE)) {
                 String[] tokens = inputString.split(" ");
                 try {
                     game.move(new Position(tokens[1]), new Position(tokens[2]));
@@ -61,7 +64,7 @@ public class Main {
 
         while(true) {
             String inputString = in.next();
-            if(inputString.equals("start")) {
+            if(inputString.equals(COMMAND_GAME_START)) {
                 System.out.println(INFO_GAME_START);
                 break;
             }
