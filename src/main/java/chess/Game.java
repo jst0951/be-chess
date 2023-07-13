@@ -6,6 +6,7 @@ import static chess.Board.ROW_CNT;
 import static chess.Board.COL_CNT;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Game {
     public static final double PAWN_SAME_ROW_SCORE = 0.5;
@@ -65,18 +66,11 @@ public class Game {
     }
 
     public double calculatePoint(Piece.Color color) {
-        List<Piece> nonBlankPieceList = new ArrayList<>();
-        for(Piece piece: pieceList) {
-            if(piece.getColor() == color) { // 주어진 색인 경우에만 추가
-                nonBlankPieceList.add(piece);
-            }
-        }
-
         // 우선 모든 기물들의 기본 점수를 더한다.
-        double score = 0;
-        for(Piece piece: nonBlankPieceList) {
-            score += piece.getType().getDefaultPoint();
-        }
+        double score = pieceList.stream()
+                .filter(piece -> piece.getColor() == color)
+                .mapToDouble(piece -> piece.getType().getDefaultPoint())
+                .sum();
 
         // 각 열별 pawn의 개수을 구하고, 각 목록의 길이에 따라 점수를 차감한다.
         int[] pawnCntList = countPawn(color);
@@ -107,11 +101,10 @@ public class Game {
     public List<Piece> pieceListSortedByScoreAsc(Piece.Color color) {
         // 1. 각 piece에 대해 기본 점수로 Hashmap을 만든다.
         Map<Piece, Double> scoreMap = new HashMap<>();
-        for(Piece piece: pieceList) {
-            if(piece.getColor() == color) {
-                scoreMap.put(piece, piece.getType().getDefaultPoint());
-            }
-        }
+        pieceList.stream()
+                .filter(piece -> piece.getColor() == color)
+                .forEach(piece -> scoreMap.put(piece, piece.getType().getDefaultPoint()));
+
         // 2. pawn이 같은 세로줄에 있는 경우, 0.5점을 넣는다.
         int[] pawnCntList = countPawn(color);
         for(int idx = 0; idx < ROW_CNT * COL_CNT; idx++) {

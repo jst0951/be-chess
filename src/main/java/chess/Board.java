@@ -3,6 +3,7 @@ package chess;
 import chess.pieces.Piece;
 
 import java.util.*;
+import java.util.stream.IntStream;
 
 import chess.pieces.Piece.Color;
 import chess.pieces.Piece.Type;
@@ -18,7 +19,7 @@ public class Board {
     }
 
     public void initialize() {
-        this.pieceList.clear();
+        pieceList.clear();
         // 흑색 기물(폰 제외) 셋팅
         addPiece(Piece.createBlackRook());
         addPiece(Piece.createBlackKnight());
@@ -52,18 +53,17 @@ public class Board {
         addPiece(Piece.createWhiteRook());
     }
     public void initializeEmpty() {
-        this.pieceList.clear();
+        pieceList.clear();
         for(int i = 0; i < ROW_CNT; i++) {
             addBlankRow();
         }
     }
     private void addPiece(Piece piece) {
-        this.pieceList.add(piece);
+        pieceList.add(piece);
     }
     private void addBlankRow() {
-        for(int i = 0; i < COL_CNT; i++) {
-            addPiece(Piece.createBlank());
-        }
+        IntStream.range(0, COL_CNT)
+                .forEach((i) -> addPiece(Piece.createBlank()));
     }
 
     public Piece findPiece(Position position) {
@@ -77,24 +77,14 @@ public class Board {
         return pieceList.size();
     }
     public int pieceCount() {
-        int pCnt = 0;
-        for(int i = 0; i < ROW_CNT * COL_CNT; i++) {
-            if(this.pieceList.get(i).getType() != Type.NO_PIECE) {
-                pCnt++;
-            }
-        }
-
-        return pCnt;
+        return (int) pieceList.stream()
+                .filter(piece -> piece.getType() != Type.NO_PIECE)
+                .count();
     }
     public int pieceCount(Color color, Type type) {
-        int pCnt = 0;
-        for(Piece piece: pieceList) {
-            if(piece.getColor() == color && piece.getType() == type) {
-                pCnt ++;
-            }
-        }
-
-        return pCnt;
+        return (int) pieceList.stream()
+                .filter(piece -> piece.getColor() == color && piece.getType() == type)
+                .count();
     }
 
     public void putPiece(Position position, Piece piece) {
