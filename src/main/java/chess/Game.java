@@ -1,6 +1,7 @@
 package chess;
 
 import chess.pieces.Piece;
+import static chess.pieces.Piece.Color;
 import static chess.Board.ROW_CNT;
 import static chess.Board.COL_CNT;
 
@@ -15,6 +16,7 @@ public class Game {
 
     private final Board board;
     private final List<Piece> pieceList;
+    private Color turn = Color.WHITE;
 
     public Game(Board board) {
         this.board = board;
@@ -24,6 +26,7 @@ public class Game {
     public void move(Position source, Position target) throws RuntimeException {
         if (isMovable(source, target)) {
             board.movePiece(source, target);
+            changeTurn();
         }
     }
     private boolean isMovable(Position source, Position target) throws RuntimeException {
@@ -55,6 +58,13 @@ public class Game {
         }
 
         return true;
+    }
+
+    public void changeTurn() {
+        turn = (turn == Color.WHITE) ? Color.BLACK : Color.WHITE;
+    }
+    public Color getTurn() {
+        return this.turn;
     }
 
     public double calculatePoint(Piece.Color color) {
