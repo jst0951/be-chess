@@ -60,6 +60,7 @@ public class Main {
                 // 입력 검증
                 if(!inputString.matches(REGEX_COMMAND_MOVE)) {
                     System.out.println(ERROR_MESSAGE_MOVE);
+                    continue;
                 }
                 // 이동 진행
                 try {
