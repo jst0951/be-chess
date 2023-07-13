@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static chess.Game.*;
+import static chess.pieces.Piece.Color;
+import static chess.pieces.Piece.Type;
 import static org.assertj.core.api.Assertions.*;
 
 class GameTest {
@@ -35,8 +37,8 @@ class GameTest {
         addPiece("e1", Piece.createWhiteRook());
         addPiece("f1", Piece.createWhiteKing());
 
-        assertThat(game.calculatePoint(Piece.Color.BLACK)).isEqualTo(15.0, withPrecision(0.01));
-        assertThat(game.calculatePoint(Piece.Color.WHITE)).isEqualTo(7.0, withPrecision(0.01));
+        assertThat(game.calculatePoint(Color.BLACK)).isEqualTo(15.0, withPrecision(0.01));
+        assertThat(game.calculatePoint(Color.WHITE)).isEqualTo(7.0, withPrecision(0.01));
     }
     @Test
     @DisplayName("각자의 점수를 계산해야한다.(폰이 같은 세로줄에 있는 경우)")
@@ -60,8 +62,8 @@ class GameTest {
         addPiece("e1", Piece.createWhiteRook());
         addPiece("f1", Piece.createWhiteKing());
 
-        assertThat(game.calculatePoint(Piece.Color.BLACK)).isEqualTo(20, withPrecision(0.01));
-        assertThat(game.calculatePoint(Piece.Color.WHITE)).isEqualTo(19.5, withPrecision(0.01));
+        assertThat(game.calculatePoint(Color.BLACK)).isEqualTo(20, withPrecision(0.01));
+        assertThat(game.calculatePoint(Color.WHITE)).isEqualTo(19.5, withPrecision(0.01));
     }
     private void addPiece(String position, Piece piece) {
         board.putPiece(new Position(position), piece);
@@ -89,7 +91,7 @@ class GameTest {
         addPiece("e1", Piece.createWhiteRook());
         addPiece("f1", Piece.createWhiteKing());
 
-        List<Piece> sortedPieceList = game.pieceListSortedByScoreAsc(Piece.Color.WHITE);
+        List<Piece> sortedPieceList = game.pieceListSortedByScoreAsc(Color.WHITE);
     }
 
     @Test
@@ -114,7 +116,7 @@ class GameTest {
         addPiece("e1", Piece.createWhiteRook());
         addPiece("f1", Piece.createWhiteKing());
 
-        List<Piece> sortedPieceList = game.pieceListSortedByScoreDesc(Piece.Color.WHITE);
+        List<Piece> sortedPieceList = game.pieceListSortedByScoreDesc(Color.WHITE);
     }
 
     @Test
@@ -130,10 +132,10 @@ class GameTest {
 
         // Then
         // 올바르게 이동됨
-        assertThat(board.findPiece(source).getColor()).isEqualTo(Piece.Color.NOCOLOR);
-        assertThat(board.findPiece(source).getType()).isEqualTo(Piece.Type.NO_PIECE);
-        assertThat(board.findPiece(target).getColor()).isEqualTo(Piece.Color.WHITE);
-        assertThat(board.findPiece(target).getType()).isEqualTo(Piece.Type.PAWN);
+        assertThat(board.findPiece(source).getColor()).isEqualTo(Color.NOCOLOR);
+        assertThat(board.findPiece(source).getType()).isEqualTo(Type.NO_PIECE);
+        assertThat(board.findPiece(target).getColor()).isEqualTo(Color.WHITE);
+        assertThat(board.findPiece(target).getType()).isEqualTo(Type.PAWN);
     }
     @Test
     @DisplayName("원본 좌표, 목포 좌표가 주어졌을 때 움직여지지 않는다.(판 밖으로 벗어나는 경우)")
@@ -152,8 +154,8 @@ class GameTest {
         // Exception 발생
         assertThat(throwable).isInstanceOf(IllegalArgumentException.class).hasMessage(ERROR_OUT_OF_BOUNDARY);
         // 이동이 진행되지 않음
-        assertThat(board.findPiece(source).getColor()).isEqualTo(Piece.Color.WHITE);
-        assertThat(board.findPiece(source).getType()).isEqualTo(Piece.Type.PAWN);
+        assertThat(board.findPiece(source).getColor()).isEqualTo(Color.WHITE);
+        assertThat(board.findPiece(source).getType()).isEqualTo(Type.PAWN);
     }
 
     @Test
@@ -173,10 +175,10 @@ class GameTest {
         // Exception 발생
         assertThat(throwable).isInstanceOf(IllegalArgumentException.class).hasMessage(ERROR_SAME_POSITION);
         // 이동이 진행되지 않음
-        assertThat(board.findPiece(source).getColor()).isEqualTo(Piece.Color.WHITE);
-        assertThat(board.findPiece(source).getType()).isEqualTo(Piece.Type.PAWN);
-        assertThat(board.findPiece(target).getColor()).isEqualTo(Piece.Color.WHITE);
-        assertThat(board.findPiece(target).getType()).isEqualTo(Piece.Type.PAWN);
+        assertThat(board.findPiece(source).getColor()).isEqualTo(Color.WHITE);
+        assertThat(board.findPiece(source).getType()).isEqualTo(Type.PAWN);
+        assertThat(board.findPiece(target).getColor()).isEqualTo(Color.WHITE);
+        assertThat(board.findPiece(target).getType()).isEqualTo(Type.PAWN);
     }
     @Test
     @DisplayName("원본 좌표, 목표 좌표가 주어졌을 때 움직여지지 않는다.(이동하려는 곳에 같은 편의 기물이 있는 경우)")
@@ -195,10 +197,10 @@ class GameTest {
         // Exception 발생
         assertThat(throwable).isInstanceOf(IllegalArgumentException.class).hasMessage(ERROR_SAME_TEAM_EXISTS);
         // 이동이 진행되지 않음
-        assertThat(board.findPiece(source).getColor()).isEqualTo(Piece.Color.WHITE);
-        assertThat(board.findPiece(source).getType()).isEqualTo(Piece.Type.KING);
-        assertThat(board.findPiece(target).getColor()).isEqualTo(Piece.Color.WHITE);
-        assertThat(board.findPiece(target).getType()).isEqualTo(Piece.Type.PAWN);
+        assertThat(board.findPiece(source).getColor()).isEqualTo(Color.WHITE);
+        assertThat(board.findPiece(source).getType()).isEqualTo(Type.KING);
+        assertThat(board.findPiece(target).getColor()).isEqualTo(Color.WHITE);
+        assertThat(board.findPiece(target).getType()).isEqualTo(Type.PAWN);
     }
     @Test
     @DisplayName("시작 위치, 이동 위치가 주어졌을 때 움직여지지 않는다.(이동할 수 없는 움직임인 경우)")
@@ -217,10 +219,10 @@ class GameTest {
         // Exception 발생
         assertThat(throwable).isInstanceOf(IllegalArgumentException.class).hasMessage(ERROR_MOVE_UNAVAILABLE);
         // 올바르게 이동되는 경우
-        assertThat(board.findPiece(source).getColor()).isEqualTo(Piece.Color.WHITE);
-        assertThat(board.findPiece(source).getType()).isEqualTo(Piece.Type.KING);
-        assertThat(board.findPiece(target).getColor()).isEqualTo(Piece.Color.NOCOLOR);
-        assertThat(board.findPiece(target).getType()).isEqualTo(Piece.Type.NO_PIECE);
+        assertThat(board.findPiece(source).getColor()).isEqualTo(Color.WHITE);
+        assertThat(board.findPiece(source).getType()).isEqualTo(Type.KING);
+        assertThat(board.findPiece(target).getColor()).isEqualTo(Color.NOCOLOR);
+        assertThat(board.findPiece(target).getType()).isEqualTo(Type.NO_PIECE);
     }
 
     @Test
@@ -235,6 +237,6 @@ class GameTest {
         game.move(source, target);
 
         // Then
-        assertThat(game.getTurn()).isEqualTo(Piece.Color.BLACK);
+        assertThat(game.getTurn()).isEqualTo(Color.BLACK);
     }
 }
