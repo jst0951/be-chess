@@ -10,7 +10,6 @@ import chess.pieces.Piece.Type;
 public class Board {
     public static final int ROW_CNT = 8;
     public static final int COL_CNT = 8;
-    public static final double PAWN_SAMEROW_SCORE = 0.5;
 
     private final List<Piece> pieceList;
 
@@ -19,7 +18,7 @@ public class Board {
     }
 
     public void initialize() {
-        int i;
+        this.pieceList.clear();
         // 흑색 기물(폰 제외) 셋팅
         addPiece(Piece.createBlackRook());
         addPiece(Piece.createBlackKnight());
@@ -30,7 +29,7 @@ public class Board {
         addPiece(Piece.createBlackKnight());
         addPiece(Piece.createBlackRook());
         // 검은색 폰 셋팅
-        for (i = 0; i < COL_CNT; i++) {
+        for (int i = 0; i < COL_CNT; i++) {
             addPiece(Piece.createBlackPawn());
         }
         // 빈 칸 4줄 셋팅
@@ -39,7 +38,7 @@ public class Board {
         addBlankRow();
         addBlankRow();
         // 흰색 폰 셋팅
-        for (i = 0; i < COL_CNT; i++) {
+        for (int i = 0; i < COL_CNT; i++) {
             addPiece(Piece.createWhitePawn());
         }
         // 백색 기물(폰 제외) 셋팅
@@ -53,29 +52,25 @@ public class Board {
         addPiece(Piece.createWhiteRook());
     }
     public void initializeEmpty() {
+        this.pieceList.clear();
         for(int i = 0; i < ROW_CNT; i++) {
             addBlankRow();
         }
     }
-    public void addBlankRow() {
+    private void addPiece(Piece piece) {
+        this.pieceList.add(piece);
+    }
+    private void addBlankRow() {
         for(int i = 0; i < COL_CNT; i++) {
             addPiece(Piece.createBlank());
         }
     }
 
-    public List<Piece> getPieceList() {
-        return this.pieceList;
-    }
-
-    public void addPiece(Piece piece) {
-        this.pieceList.add(piece);
-    }
-
-    public Piece findPiece(int idx) {
-        return this.pieceList.get(idx);
-    }
     public Piece findPiece(Position position) {
         return pieceList.get(position.getListIdx());
+    }
+    public List<Piece> getPieceList() {
+        return Collections.unmodifiableList(this.pieceList);
     }
 
     public int size() {
@@ -100,5 +95,15 @@ public class Board {
         }
 
         return pCnt;
+    }
+
+    public void putPiece(Position position, Piece piece) {
+        pieceList.set(position.getListIdx(), piece);
+    }
+    public void movePiece(Position source, Position target) {
+        Piece piece = pieceList.get(source.getListIdx());
+
+        pieceList.set(source.getListIdx(), Piece.createBlank());
+        pieceList.set(target.getListIdx(), piece);
     }
 }

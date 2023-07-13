@@ -9,7 +9,6 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.withPrecision;
-import static org.junit.jupiter.api.Assertions.*;
 
 class GameTest {
     private Board board;
@@ -65,7 +64,7 @@ class GameTest {
         assertThat(game.calculatePoint(Piece.Color.WHITE)).isEqualTo(19.5, withPrecision(0.01));
     }
     private void addPiece(String position, Piece piece) {
-        game.move(new Position(position), piece);
+        board.putPiece(new Position(position), piece);
     }
 
     @Test

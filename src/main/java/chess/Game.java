@@ -3,26 +3,23 @@ package chess;
 import chess.pieces.Piece;
 import static chess.Board.ROW_CNT;
 import static chess.Board.COL_CNT;
-import static chess.Board.PAWN_SAMEROW_SCORE;
 
 import java.util.*;
 
 public class Game {
+    public static final double PAWN_SAMEROW_SCORE = 0.5;
+
+    private final Board board;
     private final List<Piece> pieceList;
 
     public Game(Board board) {
+        this.board = board;
         this.pieceList = board.getPieceList();
     }
 
-    public void move(Position position, Piece piece) {
-        this.pieceList.set(position.getListIdx(), piece);
-    }
     public void move(Position source, Position target) {
-        Piece piece = pieceList.get(source.getListIdx());
-
         if (isMovable(source, target)) {
-            this.pieceList.set(source.getListIdx(), Piece.createBlank());
-            this.pieceList.set(target.getListIdx(), piece);
+            board.movePiece(source, target);
         }
     }
 

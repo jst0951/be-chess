@@ -14,14 +14,10 @@ import static utils.StringUtils.appendNewLine;
 
 class BoardTest {
     private Board board;
-    private Game game;
-    private View view;
 
     @BeforeEach
     public void setup() {
         board = new Board();
-        game = new Game(board);
-        view = new View(board);
     }
 
     @Test
@@ -71,7 +67,7 @@ class BoardTest {
 
         String position = "b5";
         Piece piece = Piece.createBlackRook();
-        game.move(new Position(position), piece);
+        board.putPiece(new Position(position), piece);
 
         assertThat(board.findPiece(new Position(position))).isEqualTo(piece);
     }
