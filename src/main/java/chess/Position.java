@@ -6,7 +6,7 @@ public class Position {
     private final int yPos;
     private final int listIdx;
 
-    public Position(String position) throws RuntimeException {
+    public Position(String position) throws IllegalArgumentException {
         verifyPosition(position);
 
         char x = position.charAt(0);
@@ -17,7 +17,7 @@ public class Position {
         this.listIdx = yPos * 8 + xPos;
     }
 
-    private void verifyPosition(String position) throws RuntimeException {
+    private void verifyPosition(String position) throws IllegalArgumentException {
         char x = position.charAt(0);
         char y = position.charAt(1);
         if(x < 'a' || x > 'h' || y < '1' || y > '8') {

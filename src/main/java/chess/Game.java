@@ -23,13 +23,13 @@ public class Game {
         this.pieceList = board.getPieceList();
     }
 
-    public void move(Position source, Position target) throws RuntimeException {
+    public void move(Position source, Position target) throws IllegalArgumentException {
         if (isMovable(source, target)) {
             board.movePiece(source, target);
             changeTurn();
         }
     }
-    private boolean isMovable(Position source, Position target) throws RuntimeException {
+    private boolean isMovable(Position source, Position target) throws IllegalArgumentException {
         // 원본 좌표와 목표 좌표가 같은지 확인
         if(source.getListIdx() == target.getListIdx()) {
             throw new IllegalArgumentException(ERROR_SAME_POSITION);
