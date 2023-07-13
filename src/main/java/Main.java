@@ -40,7 +40,7 @@ public class Main {
         }
     }
 
-    private static void playGame() throws IllegalArgumentException {
+    private static void playGame() {
         Board board = new Board();
         Game game = new Game(board);
         View view = new View(board);
@@ -57,26 +57,37 @@ public class Main {
                 break;
             }
             if(inputString.startsWith(COMMAND_MOVE)) {
-                // 입력 검증
-                if(!inputString.matches(REGEX_COMMAND_MOVE)) {
-                    System.out.println(ERROR_MESSAGE_MOVE);
-                    continue;
-                }
-                // 이동 진행
-                try {
-                    String[] tokens = inputString.split(" ");
-                    game.move(new Position(tokens[1]), new Position(tokens[2]));
-                    System.out.println(view.showBoard());
-                }
-                catch (IllegalArgumentException e) {
-                    System.out.println(e.getMessage());
-                    System.out.println(ERROR_MESSAGE_RETYPE);
-                }
+                logicMove(inputString, game, view);
             }
-
             else {
                 System.out.println(ERROR_MESSAGE_GAME);
             }
         }
     }
+
+    private static void logicMove(String inputString, Game game, View view) {
+        // 입력 검증
+        try {
+            if(!inputString.matches(REGEX_COMMAND_MOVE)) {
+                throw new IllegalArgumentException(ERROR_MESSAGE_MOVE);
+            }
+        } catch (IllegalArgumentException e) {
+            printExceptionMessage(e);
+            return;
+        }
+        // 이동 진행
+        try {
+            String[] tokens = inputString.split(" ");
+            game.move(new Position(tokens[1]), new Position(tokens[2]));
+            System.out.println(view.showBoard());
+        }
+        catch (IllegalArgumentException e) {
+            printExceptionMessage(e);
+        }
+    }
+    private static void printExceptionMessage(RuntimeException e) {
+        System.out.println(e.getMessage());
+        System.out.println(ERROR_MESSAGE_RETYPE);
+    }
+
 }
