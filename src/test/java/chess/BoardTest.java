@@ -62,7 +62,7 @@ class BoardTest {
 
     @Test
     @DisplayName("임의의 기물을 체스판 위에 추가한다.(원래 있던 것은 무시, 추가만)")
-    public void addPieceByPosition() {
+    public void putPiece() {
         board.initializeEmpty();
 
         String position = "b5";
@@ -70,6 +70,24 @@ class BoardTest {
         board.putPiece(new Position(position), piece);
 
         assertThat(board.findPiece(new Position(position))).isEqualTo(piece);
+    }
+
+    @Test
+    @DisplayName("기물을 목표 위치로 옮긴다.(Game 제약상의 조건 무시)")
+    public void movePiece() {
+        // Given
+        board.initialize();
+        Position source = new Position("b2");
+        Position target = new Position("b3");
+
+        // When
+        board.movePiece(source, target);
+
+        // Then
+        assertThat(board.findPiece(source).getType()).isEqualTo(Type.NO_PIECE);
+        assertThat(board.findPiece(source).getColor()).isEqualTo(Color.NOCOLOR);
+        assertThat(board.findPiece(target).getType()).isEqualTo(Type.PAWN);
+        assertThat(board.findPiece(target).getColor()).isEqualTo(Color.WHITE);
     }
 
 }
