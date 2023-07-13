@@ -23,10 +23,29 @@ public class Main {
         // 게임 시작 처리
         waitUntilInput();
         // 게임 진행
-        playGame();
+        try{
+            playGame();
+        }
+        catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            System.out.println(ERROR_MESSAGE_RETYPE);
+        }
     }
 
-    private static void playGame() {
+    private static void waitUntilInput() {
+        Scanner in = new Scanner(System.in);
+
+        while(true) {
+            String inputString = in.next();
+            if(inputString.equals(COMMAND_GAME_START)) {
+                System.out.println(INFO_GAME_START);
+                break;
+            }
+            System.out.println(ERROR_MESSAGE_START);
+        }
+    }
+
+    private static void playGame() throws IllegalArgumentException {
         Board board = new Board();
         Game game = new Game(board);
         View view = new View(board);
@@ -44,31 +63,12 @@ public class Main {
             }
             if(inputString.startsWith(COMMAND_MOVE)) {
                 String[] tokens = inputString.split(" ");
-                try {
-                    game.move(new Position(tokens[1]), new Position(tokens[2]));
-                }
-                catch(RuntimeException e) {
-                    System.out.println(e.getMessage());
-                    System.out.println(ERROR_MESSAGE_RETYPE);
-                }
+                game.move(new Position(tokens[1]), new Position(tokens[2]));
                 System.out.println(view.showBoard());
             }
             else {
                 System.out.println(ERROR_MESSAGE_GAME);
             }
-        }
-    }
-
-    private static void waitUntilInput() {
-        Scanner in = new Scanner(System.in);
-
-        while(true) {
-            String inputString = in.next();
-            if(inputString.equals(COMMAND_GAME_START)) {
-                System.out.println(INFO_GAME_START);
-                break;
-            }
-            System.out.println(ERROR_MESSAGE_START);
         }
     }
 }
